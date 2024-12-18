@@ -75,7 +75,7 @@ export default function FixedBottomNavigation() {
             if (newValue === 2) return;
             setValue(newValue);
           }}
-          className={isMobile ? "py-0" : "py-8"}
+          className={isMobile ? "py-0 px-2" : "py-8"}
         >
           <BottomNavigationAction
            label={
