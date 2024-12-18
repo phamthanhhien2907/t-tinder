@@ -1,7 +1,7 @@
 import axios from "axios";
 const instance = axios.create({
-  baseURL: "http://localhost:8080/api",
-  // baseURL: "https://sv.sexyloveeu.com/api",
+  // baseURL: "http://localhost:8080/api",
+  baseURL: "https://t-tinder-server.onrender.com/api",
 });
 instance.interceptors.request.use(
   function (config) {

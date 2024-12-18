@@ -5,7 +5,9 @@ import {
   Tag,
   UsersRound,
 } from "lucide-react";
-export const pathImg = "http://localhost:8080/";
+// export const pathImg = "http://localhost:8080/";
+export const pathImg = "https://t-tinder-server.onrender.com/";
+
 export const navLinks = [
   {
     url: "/",
