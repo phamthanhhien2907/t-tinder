@@ -96,7 +96,7 @@ const Auth = () => {
               <img src={auth} alt="logo auth" />
             </div>
             <div className="absolute top-80 flex flex-col gap-10 items-center w-full ">
-              <h3 className="text-4xl font-bold text-white">Đăng Nhập</h3>
+              <h3 className="text-4xl font-bold text-white max-sm:text-lg">Đăng Nhập</h3>
               <div className="w-full px-12 ">
                 <form
                   onSubmit={handleSubmit(onSubmit)}
@@ -105,19 +105,19 @@ const Auth = () => {
                   <div className="relative">
                     <input
                       placeholder="Tên đăng nhập"
-                      className="sm:text-xl text-center w-full rounded-full border-none outline-none h-[70px] placeholder:text-xl placeholder:text-center"
+                      className="sm:text-xl text-center w-full rounded-full border-none outline-none h-[70px] max-sm:h-[40px] placeholder:max-sm:text-sm placeholder:text-xl placeholder:text-center max-sm:text-xs"
                       {...register("username", { required: true })}
                     />
                     {watch("username").length > 0 && (
                       <X
                         onClick={handleClick}
-                        className="absolute top-6 text-gray-400 right-4"
+                        className="absolute max-sm:w-4 top-6 text-gray-400 right-4 max-sm:top-2"
                       />
                     )}
                   </div>
                   {errors.username && (
-                    <span className="text-red-600 text-xl font-bold">
-                      This field is required
+                    <span className="text-red-600 text-xl font-bold max-sm:text-xs">
+                     Tên tài khoản là bắt buộc
                     </span>
                   )}
                   {/* include validation with required or other standard HTML validation rules */}
@@ -126,31 +126,31 @@ const Auth = () => {
                       type={hiddenPassword ? "password" : "text"}
                       placeholder="Mật khẩu"
                       {...register("password", { required: true })}
-                      className="sm:text-xl text-center w-full rounded-full border-none outline-none h-[70px] placeholder:text-xl placeholder:text-center"
+                      className="sm:text-xl text-center w-full rounded-full border-none outline-none h-[70px] max-sm:h-[40px] placeholder:max-sm:text-sm placeholder:text-xl placeholder:text-center max-sm:text-xs"
                     />
                     {hiddenPassword ? (
                       <Eye
                         onClick={() => setHiddenPassword(!hiddenPassword)}
-                        className="absolute top-5 right-4 text-gray-400 cursor-pointer"
+                        className="absolute top-5 right-4 max-sm:top-3 max-sm:w-4 text-gray-400 cursor-pointer"
                       />
                     ) : (
                       <EyeOff
                         onClick={() => setHiddenPassword(!hiddenPassword)}
-                        className="absolute top-5 right-4 text-gray-400 cursor-pointer"
+                        className="absolute top-5 right-4 max-sm:top-3 max-sm:w-4 text-gray-400 cursor-pointer"
                       />
                     )}
                   </div>
                   {/* errors will return when field validation fails  */}
                   {errors.password && (
-                    <span className="text-red-600 text-xl font-bold">
-                      This field is required
+                    <span className="text-red-600 text-xl font-bold max-sm:text-xs">
+                     Mật khẩu là bắt buộc
                     </span>
                   )}
                   <div className="flex items-center justify-between px-2">
                   
                   <div className="flex items-center gap-1 ">
-                    <img src={cskh} alt="cskh" className="w-5 h-5"/>
-                    <span className="cursor-pointer text-base text-white  ">
+                    <img src={cskh} alt="cskh" className="w-5 h-5 max-sm:w-4 max-sm:h-4"/>
+                    <span className="cursor-pointer text-base text-white max-sm:text-[11px]">
                      Liên hệ CSKH
                     </span>
                   </div>
@@ -160,7 +160,7 @@ const Auth = () => {
                         setRegisterPage(!registerPage);
                         resetForm();
                       }}
-                      className="text-lg cursor-pointer font-semibold text-white "
+                      className="text-lg cursor-pointer font-semibold text-white max-sm:text-xs"
                     >
                       Đăng kí tài khoản
                     </span>
@@ -168,7 +168,7 @@ const Auth = () => {
                   </div>
                   <button
                     type="submit"
-                    className="bg-[#775fd9] sm:text-xl text-center w-full rounded-full border-none outline-none h-[50px] placeholder:text-xl text-white  font-bold placeholder:text-center"
+                    className="bg-[#775fd9] sm:text-xl text-center w-full rounded-full border-none outline-none h-[50px] placeholder:text-xl text-white  font-bold placeholder:text-center max-sm:text-sm max-sm:h-[35px]"
                   >
                     Đăng nhập
                   </button>
@@ -199,7 +199,7 @@ const Auth = () => {
               <img src={auth} alt="logo auth" />
             </div>
             <div className="absolute top-80 flex flex-col gap-10 items-center w-full ">
-              <h3 className="text-4xl font-bold text-white">Đăng Ký</h3>
+              <h3 className="text-4xl font-bold text-white max-sm:text-lg">Đăng Ký</h3>
               <div className="w-full px-12 ">
                 <form
                   onSubmit={handleSubmit(onSubmit)}
@@ -208,16 +208,16 @@ const Auth = () => {
                   <div className="relative">
                     <input
                       placeholder="Tên đăng ký"
-                      className="sm:text-xl text-center w-full rounded-full border-none outline-none h-[70px] placeholder:text-xl placeholder:text-center"
+                      className="sm:text-xl text-center w-full rounded-full border-none outline-none h-[70px] max-sm:h-[40px] placeholder:max-sm:text-sm placeholder:text-xl placeholder:text-center max-sm:text-xs"
                       {...register("username", { required: true })}
                     />
                     <X
                       onClick={handleClick}
-                      className="absolute top-6 text-gray-400 right-4"
+                      className="absolute max-sm:w-4 top-6 text-gray-400 right-4 max-sm:top-2"
                     />
                   </div>
                   {errors.username && (
-                    <span className="text-red-600 text-xl font-bold">
+                    <span className="text-red-600 text-xl font-bold max-sm:text-xs">
                     Tên tài khoản là bắt buộc
                     </span>
                   )}
@@ -227,34 +227,34 @@ const Auth = () => {
                       type={hiddenPassword ? "password" : "text"}
                       placeholder="Mật khẩu"
                       {...register("password", { required: true })}
-                      className="sm:text-xl text-center w-full rounded-full border-none outline-none h-[70px] placeholder:text-xl placeholder:text-center"
+                      className="sm:text-xl text-center w-full rounded-full border-none outline-none h-[70px] max-sm:h-[40px] placeholder:max-sm:text-sm placeholder:text-xl placeholder:text-center max-sm:text-xs"
                     />
                     {hiddenPassword ? (
                       <Eye
                         onClick={() => setHiddenPassword(!hiddenPassword)}
-                        className="absolute top-5 right-4 text-gray-400 cursor-pointer"
+                        className="absolute top-5 right-4 max-sm:top-3 max-sm:w-4 text-gray-400 cursor-pointer"
                       />
                     ) : (
                       <EyeOff
                         onClick={() => setHiddenPassword(!hiddenPassword)}
-                        className="absolute top-5 right-4 text-gray-400 cursor-pointer"
+                        className="absolute top-5 right-4 max-sm:top-3 max-sm:w-4 text-gray-400 cursor-pointer"
                       />
                     )}
                   </div>
                   {/* errors will return when field validation fails  */}
                   {errors.password && (
-                    <span className="text-red-600 text-xl font-bold">
+                    <span className="text-red-600 text-xl font-bold max-sm:text-xs">
                     Mật khẩu là bắt buộc
                     </span>
                   )}
                    <div className="w-full flex justify-end px-8" onClick={() => setRegisterPage(!registerPage)}>
-                    <span className="font-semibold cursor-pointer text-lg text-white  ">
+                    <span className="font-semibold cursor-pointer text-lg text-white max-sm:text-xs">
                     Quay về đăng nhập
                     </span>
                   </div>
                   <button
                     type="submit"
-                    className="bg-[#775fd9] sm:text-xl text-center w-full rounded-full border-none outline-none h-[50px] placeholder:text-xl text-white  font-bold placeholder:text-center"
+                    className="bg-[#775fd9] sm:text-xl text-center w-full rounded-full border-none outline-none h-[50px] placeholder:text-xl text-white  font-bold placeholder:text-center max-sm:text-sm max-sm:h-[35px]"
                   >
                     Đăng Ký
                   </button>
