@@ -1,13 +1,11 @@
 import { ChevronDown, ChevronLeft, ShoppingCart } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { openDB } from "idb";
-
 import {
-  apiGetCountDown,
+  apiGetAllLottery,
+  apiGetCountdownTimer,
   apiGetLotteryById,
   apiUpdateLottery,
-  apiupdateTimer,
   apiUpdateUserIntoRoom,
 } from "@/services/evaluateService";
 import toast from "react-hot-toast";
@@ -15,8 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCurrent } from "@/stores/actions/userAction";
 import { useForm } from "react-hook-form";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getLottery } from "@/stores/actions/lotteryAction";
 import { pathImg } from "@/lib/constant";
+import { useTranslation } from "react-i18next";
 
 const result = [
   {
@@ -40,11 +38,6 @@ const DetailEvalute = () => {
   const {
     register,
     handleSubmit,
-    watch,
-    setValue,
-    getValues,
-    onChange,
-    formState: { errors },
   } = useForm({
     defaultValues: {
       money: "",
@@ -56,11 +49,64 @@ const DetailEvalute = () => {
   const [active, setActive] = useState(false);
   const [lottery, setLottery] = useState(null);
   const { id } = useParams();
-  const { roomId, userId, time } = useParams();
+  const { roomId, userId } = useParams();
+  const [isFetching, setIsFetching] = useState(false); // Thêm cờ kiểm tra
+  const { t } = useTranslation('global');
 
   const navigate = useNavigate();
   const { currentData } = useSelector((state) => state.user);
-  const { isLoggedIn, token } = useSelector((state) => state.auth);
+  const [timeLeft, setTimeLeft] = useState(0);
+  // Hàm gọi API để lấy thời gian còn lại
+  const fetchTimeLeft = async () => {
+    if (isFetching) return; 
+    setIsFetching(true); 
+
+    try {
+      const response = await apiGetCountdownTimer();
+      setTimeLeft(response?.timeLeft);
+
+      if (response?.timeLeft <= 2000) {
+        setTimeout(async () => {
+          try {
+            await apiUpdateUserRoom(roomId, userId);
+            await getAllLottery();
+            await apiGetDetailsLottery(roomId, userId);
+          } catch (error) {
+            console.error("Lỗi khi gọi API đếm ngược:", error);
+          }
+        }, 2000);
+      }
+    } catch (error) {
+      console.error("Lỗi khi gọi API đếm ngược:", error);
+    } finally {
+      setIsFetching(false); // Đặt lại cờ sau khi hoàn tất
+    }
+  };
+ 
+  useEffect(() => {
+    // Gọi API ngay khi component được tải
+    fetchTimeLeft();
+
+    // Thiết lập interval để gọi API mỗi giây
+    const interval = setInterval(() => {
+      fetchTimeLeft();
+    }, 1000);
+
+    return () => clearInterval(interval); // Dọn dẹp khi component unmount
+  }, []);
+  const formatTime = (timeInMillis) => {
+    const hours = Math.floor(
+      (timeInMillis % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor(
+      (timeInMillis % (1000 * 60 * 60)) / (1000 * 60)
+    );
+    const seconds = Math.floor((timeInMillis % (1000 * 60)) / 1000);
+    return `${hours.toString().padStart(2, "0")} : ${minutes
+      .toString()
+      .padStart(2, "0")} : ${seconds.toString().padStart(2, "0")}`;
+  };
+
   const dispatch = useDispatch();
   useEffect(() => {
     setTimeout(() => {
@@ -95,7 +141,6 @@ const DetailEvalute = () => {
     newSelected.sort();
     setSelectedItems(newSelected);
   };
-
   const apiUpdateEvaluate = async (values) => {
     const data = await apiUpdateLottery(roomId, userId, {
       money: values?.money,
@@ -118,71 +163,58 @@ const DetailEvalute = () => {
   //   // }
 
   // };
-  const [timer, setTimer] = useState(null);
   const apiGetDetailsLottery = async (roomId, userId) => {
     const data = await apiGetLotteryById(roomId, userId);
     if (data?.success) {
       setLottery(data?.evaluates);
-      setTimer(data?.evaluates?.timer);
     }
   };
-  // getApiUpdateTimer();
   useEffect(() => {
     apiGetDetailsLottery(roomId, userId);
   }, [roomId, userId]);
-  const getApiUpdateTimer = async () => {
-    await apiupdateTimer();
-  };
 
-  const apiUpdateUserRoom = async (roomId, userId) => {
-    // const data = await apiUpdateUserIntoRoom(roomId, userId, {
-    //   money: money || Number(moneyInput),
-    // });
-    const data = await apiUpdateUserIntoRoom(roomId, userId);
-    console.log(data);
-    // if (data?.success) {
-    //   toast.success(data?.message);
-    // } else {
-    //   toast.error(data?.message);
-    // }
-  };
+  const getAllLottery = async() => {
+     await apiGetAllLottery()
+  }
 
-  const apiUpdatedCountDown = async () => {
-    const data = await apiGetCountDown();
-    console.log(data);
+  const calledRooms = new Set(); // Bộ nhớ tạm để lưu các cặp roomId-userId đã gọi
 
-    // if (data?.success) {
-    //   toast.success(data?.message);
-    // } else {
-    //   toast.error(data?.message);
-    // }
-  };
-  const [timerExpired, setTimerExpired] = useState(false);
+    const apiUpdateUserRoom = async (roomId, userId) => {
+      const key = `${roomId}-${userId}`; // Tạo một khóa duy nhất cho mỗi cặp roomId-userId
+
+      if (calledRooms.has(key)) {
+        console.log("Hàm đã được gọi trước đó, không gọi lại.");
+        return;
+      }
+
+      // Đánh dấu cặp roomId-userId này đã được gọi
+      calledRooms.add(key);
+
+      try {
+        const data = await apiUpdateUserIntoRoom(roomId, userId);
+        // if (data?.success) {
+        //   toast.success(data?.message);
+        // } else {
+        //   toast.error(data?.message);
+        // }
+      } catch (error) {
+        toast.error("Lỗi khi cập nhật người dùng vào phòng." + error);
+      }
+    };
+
+ 
 
   // useEffect(() => {
   //   const countdownElement = document.getElementById("countdown");
-
-  //   // Lấy thời gian kết thúc từ Local Storage hoặc đặt mặc định nếu chưa có
-  //   // let endTime = localStorage.getItem("endTime");
-  //   // if (!endTime) {
-  //   //   endTime = new Date().getTime() + 3 * 60 * 1000; // 3 phút từ bây giờ
-  //   //   localStorage.setItem("endTime", endTime);
-  //   // }
-
   //   async function updateCountdown() {
   //     const now = new Date().getTime();
-  //     const distance = lottery?.timer - now;
+  //     const distance = lottery?.timer - now
   //     if (distance <= 0) {
-  //       if (!timerExpired) {
-  //         setTimerExpired(true);
-  //         getApiUpdateTimer();
-
-  //         // Gọi API chỉ khi thời gian đếm ngược kết thúc và chưa gọi API trước đó
-  //         apiUpdateUserRoom(roomId, userId);
-  //       }
-
+  //       getAllLottery()
   //       countdownElement.textContent = "00 : 00 : 00";
+  //       getApiUpdateTimer();
   //       apiGetDetailsLottery(roomId, userId);
+  //       // apiUpdateUserRoom(roomId, userId);
   //     } else {
   //       const hours = Math.floor(distance / (1000 * 60 * 60))
   //         .toString()
@@ -197,131 +229,16 @@ const DetailEvalute = () => {
   //       countdownElement.textContent =
   //         hours + " : " + minutes + " : " + seconds;
   //     }
-  //     // if (
-  //     //   distance <= 0 &&
-  //     //   hours <= "00" &&
-  //     //   minutes <= "00" &&
-  //     //   seconds <= "00"
-  //     // ) {
-  //     //   clearInterval(intervalId);
-
-  //     //   getApiUpdateTimer();
-  //     //   // apiUpdatedCountDown();
-  //     //   apiUpdateUserRoom(roomId, userId);
-  //     //   apiGetDetailsLottery(roomId, userId);
-  //     //   // setTimeout(() => {
-
-  //     //   // window.location.reload();
-  //     //   // endTime = new Date().getTime() + 3 * 60 * 1000; // 3 phút từ bây giờ
-  //     //   // localStorage.setItem("endTime", endTime);
-  //     //   // }, 1000);
-  //     // }
+      
   //   }
 
-  //   // Cập nhật đếm ngược mỗi giây
   //   let intervalId = setInterval(updateCountdown, 1000);
   //   updateCountdown();
 
   //   return () => clearInterval(intervalId);
-  // }, [timer, timerExpired, roomId, userId, lottery]);
+  // }, [lottery?.timer, roomId, userId, timer]);
 
-  const dbName = "myDatabase";
-  const storeName = "endTimeStore";
-
-  // useEffect(() => {
-  //   // Mở IndexedDB
-  //   const openRequest = indexedDB.open(dbName, 1);
-  //   openRequest.onupgradeneeded = (event) => {
-  //     const db = event.target.result;
-  //     db.createObjectStore(storeName);
-  //   };
-
-  //   openRequest.onsuccess = async (event) => {
-  //     const db = event.target.result;
-  //     const tx = db.transaction(storeName, "readwrite");
-  //     const store = tx.objectStore(storeName);
-
-  //     // Lấy endTime từ IndexedDB
-  //     const getEndTimeRequest = store.get("endTime");
-
-  //     getEndTimeRequest.onsuccess = async (event) => {
-  //       let endTime = event?.target?.result;
-  //       if (!endTime) {
-  //         const putEndTimeRequest = store.put(
-  //           new Date().getTime() + 3 * 60 * 1000,
-  //           "endTime"
-  //         );
-  //         await apiupdateTimer({
-  //           endTime: new Date().getTime() + 3 * 60 * 1000,
-  //         });
-  //         putEndTimeRequest.onsuccess = () => {
-  //           console.log("endTime đã được cập nhật trong IndexedDB");
-  //         };
-  //       }
-  //       const countdownElement = document.getElementById("countdown");
-  //       async function updateCountdown() {
-  //         const now = new Date().getTime();
-  //         const distance = endTime - now;
-  //         const hours = Math.floor(distance / (1000 * 60 * 60))
-  //           .toString()
-  //           .padStart(2, "0");
-  //         const minutes = Math.floor(
-  //           (distance % (1000 * 60 * 60)) / (1000 * 60)
-  //         )
-  //           .toString()
-  //           .padStart(2, "0");
-  //         const seconds = Math.floor((distance % (1000 * 60)) / 1000)
-  //           .toString()
-  //           .padStart(2, "0");
-  //         countdownElement.textContent =
-  //           hours + " : " + minutes + " : " + seconds;
-  //         if (distance <= 0) {
-  //           clearInterval(intervalId);
-  //           const deleteEndTimeRequest = store.delete("endTime");
-  //           deleteEndTimeRequest.onsuccess = () => {
-  //             console.log("endTime đã được cập nhật trong IndexedDB");
-  //           };
-  //           apiUpdatedCountDown();
-  //           apiUpdateUserRoom(roomId, userId);
-  //           window.location.reload();
-  //           // Lưu lại endTime mới vào IndexedDB
-  //           const putEndTimeRequest = store.put(
-  //             new Date().getTime() + 3 * 60 * 1000,
-  //             "endTime"
-  //           );
-  //           await apiupdateTimer({
-  //             endTime: new Date().getTime() + 3 * 60 * 1000,
-  //           });
-  //           putEndTimeRequest.onsuccess = () => {
-  //             console.log("endTime đã được cập nhật trong IndexedDB");
-  //           };
-  //         }
-  //       }
-
-  //       // Cập nhật đếm ngược mỗi giây
-  //       let intervalId = setInterval(updateCountdown, 1000);
-  //       updateCountdown();
-
-  //       return () => clearInterval(intervalId);
-  //     };
-
-  //     // Nếu không tìm thấy endTime, tạo mới
-  //     getEndTimeRequest.onerror = async () => {
-  //       const putEndTimeRequest = store.put(
-  //         new Date().getTime() + 3 * 60 * 1000,
-  //         "endTime"
-  //       );
-  //       await apiupdateTimer({ endTime: new Date().getTime() + 3 * 60 * 1000 });
-  //       putEndTimeRequest.onsuccess = () => {
-  //         // ...
-  //       };
-  //     };
-
-  //     tx.oncomplete = () => {
-  //       db.close();
-  //     };
-  //   };
-  // }, []);
+  
   return (
     <div className="sm:w-full mx-auto bg-gray-100 h-screen relative">
       <div className="sticky w-full top-0">
@@ -336,7 +253,7 @@ const DetailEvalute = () => {
         />
         <div className="w-full h-[50px] bg-profileColor">
           <span className=" text-xl text-white absolute top-2 left-[40%]">
-            Đánh giá {id}
+            {t("belt.evaluateId")}
           </span>
         </div>
       </div>
@@ -364,9 +281,13 @@ const DetailEvalute = () => {
             )}
           </div>
           <div className="flex flex-col gap-4 items-center">
-            <span className="text-pink-700">Lịch sử đánh giá</span>
+            <span className="text-pink-700">{t("belt.history")}</span>
             <p hidden id="timeHidden" className=" text-xl text-red-500"></p>
-            {/* <p id="timer" className=" text-xl text-red-500"></p> */}
+            {timeLeft > 0 ? (
+              <h2 className=" text-xl text-red-500">{formatTime(timeLeft)}</h2>
+            ) : (
+              <h2>{t("belt.loading")}</h2>
+            )}
             <p id="countdown" className=" text-xl text-red-500"></p>
           </div>
         </div>
@@ -376,7 +297,7 @@ const DetailEvalute = () => {
           <div className="flex items-center justify-between px-4 py-2">
             <div className="flex items-center gap-12 ">
               <span className="flex items-center gap-2">
-                Kỳ trước
+                {t("belt.previousPeriod")}
                 <span className="font-semibold">
                   {lottery?.periodNumber?.at(-1)} :
                 </span>
@@ -407,8 +328,8 @@ const DetailEvalute = () => {
               } transition-all duration-1000 ease-in-out delay-1000`}
             >
               <div className="flex items-center justify-around w-full">
-                <span className="text-red-500 font-semibold">Phiên </span>
-                <span className="text-red-500 font-semibold">Kết quả</span>
+                <span className="text-red-500 font-semibold">{t("belt.session")}</span>
+                <span className="text-red-500 font-semibold">{t("belt.result")}</span>
               </div>
               <div className="flex items-center justify-around ">
                 <div className="flex flex-col gap-4">
@@ -480,14 +401,14 @@ const DetailEvalute = () => {
           </button>
         ))}
       </div>
-      {/* <form onSubmit={handleSubmit(apiUpdateEvaluate)}> */}
+      <form onSubmit={handleSubmit(apiUpdateEvaluate)}>
         <div className="w-full h-[70px] bg-white absolute bottom-0">
           <div className="flex items-center py-2 justify-between px-4 relative ">
             {selectedItems?.length > 0 && hoverActive && (
               <div className="absolute bottom-[70px] w-full h-fit bg-white border-b-2 left-0">
                 <div className="flex items-center justify-between px-4 py-2">
                   <div className="flex gap-4 items-center">
-                    <span>Lựa chọn của bạn</span>
+                    <span>{t("belt.yourSelection")}</span>
                     {selectedItems?.map((selected, index) => (
                       <span key={index}>{selected}</span>
                     ))}
@@ -503,10 +424,10 @@ const DetailEvalute = () => {
                   />
                 </div>
                 <div className="flex items-center justify-between px-4 py-2">
-                  <span>Số tiền đánh giá</span>
+                  <span>{t("belt.enterAmount")}</span>
                   <input
                     type="number"
-                    placeholder="Vui lòng nhập số tiền"
+                    placeholder={t("belt.enterAmount")}
                     className="outline-none text-red-500 font-semibold"
                     {...register("money", { required: true })}
                     // aria-invalid={errors.moeny ? "true" : "false"}
@@ -516,13 +437,13 @@ const DetailEvalute = () => {
                 </div>
                 <div className="flex items-center justify-between px-4 py-2">
                   <span className="flex items-center gap-2">
-                    Đặt tổng cộng là
+                    {t("belt.totalBets")}
                     <span className="text-red-500 font-bold">
                       {selectedItems?.length}
                     </span>
                   </span>
                   <span className="flex items-center gap-2">
-                    Toàn bộ
+                  {t("belt.allAmount")}
                     <span className="text-red-500 font-bold">
                       {currentData?.withDraw.toLocaleString("vi-VN") + "₫"}
                     </span>
@@ -536,27 +457,27 @@ const DetailEvalute = () => {
                 <ShoppingCart
                   size={22}
                   onClick={() => {
-                    if (selectedItems.length > 0) setHoverActive(!hoverActive);
+                    if (selectedItems?.length > 0) setHoverActive(!hoverActive);
                   }}
                 />
-                <span className="text-gray-500">Lựa chọn</span>
+                <span className="text-gray-500">{t("belt.option")}</span>
               </div>
               <span className="w-[2px] h-[40px] bg-gray-500"></span>
             </div>
             <div className="flex items-start gap-4  ">
               <span className="flex flex-col ">
-                Số tiền hiện có:
+                {t("belt.availableMoney")}
                 <span className="text-red-500">
                   {currentData?.withDraw.toLocaleString("vi-VN") + "₫"}
                 </span>
               </span>
-              <button className="rounded-2xl bg-profileColor px-6 py-2 ">
-                Đánh giá
+              <button className="rounded-2xl bg-profileColor px-6 py-2 " >
+              {t("belt.placeAmount")}
               </button>
             </div>
           </div>
         </div>
-      {/* </form> */}
+      </form>
     </div>
   );
 };

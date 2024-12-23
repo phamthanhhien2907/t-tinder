@@ -4,10 +4,12 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 const updateBank = () => {
+  const { t } = useTranslation('global');
   const { register, handleSubmit, watch, setValue, getValues, onChange } =
     useForm({
       defaultValues: {
@@ -56,7 +58,7 @@ const updateBank = () => {
                 size={30}
               />
               <span className=" text-xl text-white absolute top-2 left-[40%]">
-                Thông tin cá nhân
+                {t("setBank.personal_info_label")}
               </span>
             </div>
           </div>
@@ -66,18 +68,18 @@ const updateBank = () => {
             <div className="flex flex-col gap-4">
               <div className="w-[90%] mx-auto h-[0.5px] bg-[#ebedf0]"></div>
               <div className="flex  px-4 py-2">
-                <span className="text-red-500">Đã liên kết ngân hàng</span>
+                <span className="text-red-500">{t("setBank.linkedBank")}</span>
               </div>
               <div className="flex items-center gap-8 px-4 py-2">
-                <span>Chủ tài khoản</span>
+                <span>{t("setBank.account_holder_label")}</span>
                 <span>{currentData?.nameOfUser}</span>
               </div>
               <div className="flex items-center gap-8 px-4 py-2">
-                <span>Số tài khoản</span>
+                <span>{t("setBank.account_number_label")}</span>
                 <span>{currentData?.creditCartOfBank}</span>
               </div>
               <div className="flex items-center gap-8 px-4 py-2">
-                <span>Tên ngân hàng</span>
+                <span>{t("setBank.bank_name_label")}</span>
                 <span>{currentData?.nameOfBank}</span>
               </div>
             </div>
@@ -86,41 +88,39 @@ const updateBank = () => {
               <div className="flex flex-col gap-4">
                 <div className="w-[90%] mx-auto h-[0.5px] bg-[#ebedf0]"></div>
                 <div className="flex  px-4 py-2">
-                  <span>Vui lòng liên kết ngân hàng</span>
+                  <span>{t("setBank.link_bank_prompt")}</span>
                 </div>
                 <div className="flex items-center gap-8 px-4 py-2 w-full">
-                  <span className="w-[25%]">Chủ tài khoản</span>
+                  <span className="w-[25%]">{t("setBank.account_holder_label")}</span>
                   <input
                     type="text"
                     className="outline-none w-[80%]"
-                    placeholder="Chủ tài khoản"
+                    placeholder={t("setBank.account_holder_placeholder")}
                     {...register("nameOfUser")}
                   />
                 </div>
                 <div className="flex items-center gap-8 px-4 py-2">
-                  <span className="w-[25%]">Số tài khoản</span>
+                  <span className="w-[25%]">{t("setBank.account_number_label")}</span>
                   <input
                     type="number"
 
                     className="outline-none w-[80%] no-spinner"
-                    placeholder="Số tài khoản"
+                    placeholder={t("setBank.account_number_placeholder")}
                     {...register("creditCartOfBank")}
                   />
                 </div>
                 <div className="flex items-center gap-8 px-4 py-2">
-                  <span className="w-[25%]">Tên ngân hàng</span>
+                  <span className="w-[25%]">{t("setBank.bank_name_label")}</span>
                   <input
                     type="text"
                     className="outline-none w-[80%]"
-                    placeholder="Tên ngân hàng"
+                    placeholder={t("setBank.bank_name_placeholder")}
                     {...register("nameOfBank")}
                   />
                 </div>
                 <div className="flex items-center gap-8 px-4 py-2">
                   <span className="text-red-500 font-semibold">
-                    Để đảm bảo an toàn cho tài khoản của bạn, vui lòng liên kết
-                    họ tên thật của bạn và đặt mật khẩu rút. Nếu tên của bạn
-                    không khớp với tên tài khoản, bạn sẽ không thể rút.
+                    {t("setBank.warning_text")}
                   </span>
                 </div>
                 <div className="flex items-center gap-8 px-4 py-2">
@@ -128,7 +128,7 @@ const updateBank = () => {
                     type="submit"
                     className="bg-profileColor w-full rounded-xl h-12 text-white"
                   >
-                    Xác nhận
+                    {t("setBank.save_button")}
                   </button>
                 </div>
               </div>

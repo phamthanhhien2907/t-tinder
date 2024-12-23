@@ -15,6 +15,7 @@ import { Landmark } from "lucide-react";
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import toast from "react-hot-toast";
 import { useMediaQuery } from "@mui/material";
+import { useTranslation } from "react-i18next";
 const Profile = () => {
   const [alert, setAlert] = useState(false);
   const { currentData } = useSelector((state) => state.user);
@@ -22,7 +23,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isMobile = useMediaQuery("(max-width:600px)");
-
+  const { t } = useTranslation('global');
   useEffect(() => {
     if (isLoggedIn && token) {
       setTimeout(() => {
@@ -83,7 +84,7 @@ const Profile = () => {
             </Link>
             <div className="flex items-center gap-1">
               <img src={level_vip} className="w-12 h-10" alt="vip" />
-              <h3 className="text-lg text-white">VIP 0</h3>
+              <h3 className="text-lg text-white">{t('profile.vipLevel')}</h3>
             </div>
           </div>
         </div>
@@ -95,7 +96,7 @@ const Profile = () => {
                   sx={{ fontSize: 30, color: "#c24491" }}
                 />
                 <span className="text-xl text-[#c24491] max-sm:text-base" onClick={handleAlert}>
-                  Nạp tiền
+                  {t('profile.deposit')}
                 </span>
               </div>
               <span className="w-[3px] bg-gray-300 h-[60px] max-sm:h-[40px]"></span>
@@ -114,7 +115,7 @@ const Profile = () => {
                 }}
               >
                 <WalletIcon sx={{ fontSize: 30, color: "#c24491" }} />
-                <span className="text-xl text-[#c24491] max-sm:text-base">Rút tiền</span>
+                <span className="text-xl text-[#c24491] max-sm:text-base">{t('profile.withdraw')}</span>
               </div>
             </div>
           </div>
@@ -123,20 +124,20 @@ const Profile = () => {
       {alert && (
         <div className="absolute top-[40%] z-20 w-[90%] h-12 left-7 mx-auto bg-gray-600 ">
           <span className="text-white w-full h-full flex items-center justify-center">
-            Vui lòng liên hệ CSKH
+          {t('profile.contact')}
           </span>
         </div>
       )}
       <div className="w-[90%] mx-auto h-[260px] mt-20 bg-white rounded-2xl py-2  ">
         <div className=" mx-auto w-[95%] py-2 border-b-2 ">
-          <h3 className="text-xl text-blue-700 max-sm:text-base">Ví của tôi</h3>
+          <h3 className="text-xl text-blue-700 max-sm:text-base">{t('profile.wallet')}</h3>
         </div>
         <div className="flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-2">
             <span className="text-3xl font-bold text-blue-700 max-sm:text-2xl">0</span>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-xl text-gray-600 max-sm:text-lg">Số tiền</span>
+            <span className="text-xl text-gray-600 max-sm:text-lg">{t('profile.balance')}</span>
             <div className="w-[50px] h-[50px] max-sm:w-[40px] max-sm:h-[40px] flex items-center justify-center bg-[#c24491] rounded-full">
               <RefreshIcon
                 sx={{
@@ -152,7 +153,7 @@ const Profile = () => {
             <span className="text-3xl font-bold text-blue-700 max-sm:text-2xl">100</span>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-xl text-gray-600 max-sm:text-lg">Điểm tín nhiệm</span>
+            <span className="text-xl text-gray-600 max-sm:text-lg">{t('profile.creditScore')}</span>
             <div className="w-[50px] h-[50px] max-sm:w-[40px] max-sm:h-[40px] flex items-center justify-center bg-[#c24491] rounded-full">
               <RefreshIcon
                 sx={{
@@ -176,7 +177,7 @@ const Profile = () => {
               />
             </div>
             <span className="text-base text-[#c24491] max-sm:text-sm">
-              Chi tiết tài khoản
+            {t('profile.accountDetails')}
             </span>
           </div>
           <div
@@ -191,7 +192,7 @@ const Profile = () => {
                 }}
               />
             </div>
-            <span className="text-base text-[#c24491] max-sm:text-sm">Thông tin cá nhân</span>
+            <span className="text-base text-[#c24491] max-sm:text-sm">{t('profile.personalInfo')}</span>
           </div>
           <div
             className="flex items-center px-4 py-4 gap-4 cursor-pointer"
@@ -205,7 +206,7 @@ const Profile = () => {
                 }}
               />
             </div>
-            <span className="text-base text-[#c24491] max-sm:text-sm">Lịch sử rút tiền</span>
+            <span className="text-base text-[#c24491] max-sm:text-sm">{t('profile.withdrawHistory')}</span>
           </div>
           <div
             className="flex items-center px-4 py-4 gap-4 cursor-pointer"
@@ -220,10 +221,10 @@ const Profile = () => {
                 }}
               />
             </div>
-            <span className="text-base text-[#c24491] max-sm:text-sm">Lịch sử nạp tiền</span>
+            <span className="text-base text-[#c24491] max-sm:text-sm">{t('profile.depositHistory')}</span>
           </div>
           <div
-            className="flex items-center px-4 py-4 gap-4"
+            className="flex items-center px-4 py-4 gap-4 cursor-pointer"
             onClick={() => navigate(`/evaluatehistory/${currentData?._id}`)}
           >
             <div className="w-[50px] h-[50px] max-sm:w-[40px] max-sm:h-[40px] flex items-center justify-center border rounded-full">
@@ -234,7 +235,7 @@ const Profile = () => {
                 }}
               />
             </div>
-            <span className="text-base text-[#c24491] max-sm:text-sm">Lịch sử đánh giá</span>
+            <span className="text-base text-[#c24491] max-sm:text-sm">{t('profile.reviewHistory')}</span>
           </div>
           <div
             className="flex items-center px-4 py-4 gap-4 cursor-pointer"
@@ -253,7 +254,7 @@ const Profile = () => {
               />
             </div>
             <span className="text-base text-[#c24491] max-sm:text-sm">
-              Liên kết ngân hàng
+            {t('profile.bankLink')}
             </span>
           </div>
         </div>

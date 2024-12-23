@@ -61,6 +61,19 @@ export const apiCreateCollection = (data) =>
       console.log("Failed to get product", error);
     }
   });
+export const apiUpdateCollectionById = (id, data) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axiosConfig({
+        method: "PUT",
+        url: `/collections/updateCollection/${id}`,
+        data,
+      });
+      resolve(response);
+    } catch (error) {
+      console.log("Failed to get product", error);
+    }
+  });
 export const apiUpdateCollection = (id, userId, data) =>
   new Promise(async (resolve, reject) => {
     try {

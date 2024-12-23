@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 const updatePassword = () => {
@@ -14,7 +15,9 @@ const updatePassword = () => {
   const navigate = useNavigate();
   const [isLoadding, setIsLoadding] = useState(false);
   const [invisible, setInvisible] = useState(false);
-  const { register, handleSubmit, watch, setValue, getValues, onChange } =
+  const { t } = useTranslation('global');
+  
+  const { register, handleSubmit } =
     useForm({
       password: "",
       newPassword: "",
@@ -67,52 +70,51 @@ const updatePassword = () => {
                   size={30}
                 />
                 <span className=" text-xl text-white absolute top-2 left-[40%]">
-                  Đổi mật khẩu
+                  {t("password.changePassword")}
                 </span>
                 <Button
                   type="submit"
                   className=" text-white text-lg absolute top-1 right-0"
                 >
-                  Lưu
+                   {t("password.save")}
                 </Button>
               </div>
             </div>
             <div className="flex flex-col gap-4">
               <div className="w-[90%] mx-auto h-[0.5px] bg-[#ebedf0]"></div>
               <div className="flex items-center gap-8 px-4 py-2">
-                <span>Mật khẩu cũ</span>
+                <span>{t("password.oldPassword")}</span>
                 <div className="">
                   <input
                     {...register("password")}
-                    placeholder="Mật khẩu cũ"
+                    placeholder={t("password.oldPassword")}
                     onKeyDown={handleKeyPress}
                     className="outline-none border-none"
                   />
                 </div>
               </div>
               <div className="flex items-center gap-8 px-4 py-2">
-                <span>Mật khẩu mới</span>
+                <span>{t("password.newPassword")}</span>
                 <div className="">
                   <input
                     {...register("newPassword")}
-                    placeholder="Mật khẩu mới"
+                    placeholder={t("password.newPassword")}
                     onKeyDown={handleKeyPress}
                     className="outline-none border-none"
                   />
                 </div>
               </div>
               <div className="flex items-center gap-8 px-4 py-2">
-                <span>Nhập lại mật khẩu mới</span>
+                <span>{t("password.confirmPassword")}</span>
                 <div className="">
                   <input
                     {...register("rePassword")}
-                    placeholder="Nhập lại mật khẩu mới"
+                    placeholder={t("password.confirmPassword")}
                     onKeyDown={handleKeyPress}
                     className="outline-none border-none"
                   />
                 </div>
               </div>
-
               <div className="w-[90%] mx-auto h-[0.5px] bg-[#ebedf0]"></div>
             </div>
           </div>

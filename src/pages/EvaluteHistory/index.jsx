@@ -6,9 +6,11 @@ import danhgia5 from "@/assets/danhgia5.jpg";
 import danhgia6 from "@/assets/danhgia6.png";
 import { ChevronLeft } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const EvaluteHistory = () => {
   const [active, setActive] = useState(0);
+  const { t } = useTranslation("global");
   const [key, setKey] = useState(1);
   const navigate = useNavigate();
 
@@ -27,8 +29,7 @@ const EvaluteHistory = () => {
             size={30}
           />
           <span className=" text-xl text-white absolute top-2 left-[40%]">
-            Lịch sử đánh giá
-          </span>
+            {t("evalute.evaluationHistory")}</span>
         </div>
       </div>
       <div className="w-full flex bg-gray-100">
@@ -45,7 +46,7 @@ const EvaluteHistory = () => {
                 src={danhgia1}
                 alt="evalute"
               />
-              <span className="">Đánh giá 1 </span>
+              <span className="">{t("evalute.vip_upgrade_1")} </span>
             </div>
           </Link>
           <Link
@@ -60,7 +61,7 @@ const EvaluteHistory = () => {
                 src={danhgia2}
                 alt="evalute"
               />
-              <span className="">Đánh giá 2 </span>
+              <span className="">{t("evalute.vip_upgrade_2")} </span>
             </div>
           </Link>
           <Link
@@ -75,7 +76,7 @@ const EvaluteHistory = () => {
                 src={danhgia3}
                 alt="evalute"
               />
-              <span className="">Đánh giá 3 </span>
+              <span className="">{t("evalute.vip_upgrade_3")} </span>
             </div>
           </Link>
           <Link
@@ -90,7 +91,7 @@ const EvaluteHistory = () => {
                 src={danhgia4}
                 alt="evalute"
               />
-              <span className="">Đánh giá 4 </span>
+              <span className="">{t("evalute.vip_upgrade_4")} </span>
             </div>
           </Link>
           <Link
@@ -105,7 +106,7 @@ const EvaluteHistory = () => {
                 src={danhgia5}
                 alt="evalute"
               />
-              <span className="">Đánh giá 5 </span>
+              <span className="">{t("evalute.vip_upgrade_5")} </span>
             </div>
           </Link>
           <Link
@@ -120,7 +121,7 @@ const EvaluteHistory = () => {
                 src={danhgia6}
                 alt="evalute"
               />
-              <span className="">Đánh giá 6 </span>
+              <span className="">{t("evalute.vip_upgrade_6")} </span>
             </div>
           </Link>
         </div>

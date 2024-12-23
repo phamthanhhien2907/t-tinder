@@ -6,11 +6,40 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import reduxStore from "./redux";
 const { store, persistor } = reduxStore();
+import global_de from "@/translations/de/global.json";
+import global_vn from "@/translations/vn/global.json";
+import global_kr from "@/translations/kr/global.json";
+import global_en from "@/translations/en/global.json";
+import i18next from "i18next";
+import { I18nextProvider } from "react-i18next";
+const savedLanguage = localStorage.getItem("language") || "vn";
+
+i18next.init({
+  interpolation: { escapeValue: false },
+  lng: savedLanguage, 
+  resources: {
+    vn: {
+      global: global_vn,
+    },
+    en: {
+      global: global_en,
+    },
+    kr: {
+      global: global_kr,
+    },
+    de: {
+      global: global_de,
+    },
+  },
+});
+
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
-        <App />
+        <I18nextProvider i18n={i18next}>
+          <App/>
+        </I18nextProvider>
       </BrowserRouter>
     </PersistGate>
   </Provider>

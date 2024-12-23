@@ -24,6 +24,19 @@ export const apiupdateTimer = (data) =>
       reject(error);
     }
   });
+export const apiGetCountdownTimer = () =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axiosConfig({
+        method: "GET",
+        url: `/evaluate/lottery/countdownTimer`,
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+
 export const apiGetLotteryHistory = (roomId, userId) =>
   new Promise(async (resolve, reject) => {
     try {

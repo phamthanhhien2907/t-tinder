@@ -4,9 +4,11 @@ import { apiGetCollection } from "@/services/collectionService";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { pathImg } from "@/lib/constant";
+import { useTranslation } from "react-i18next";
 
 const Cinema = ({ currentData }) => {
   const [collections, setCollections] = useState([]);
+  const { t } = useTranslation("global");
   const getCollection = async () => {
     const data = await apiGetCollection();
     if (data.success) setCollections(data.collections);
@@ -20,24 +22,24 @@ const Cinema = ({ currentData }) => {
       <Tabs defaultValue="hot" className="w-full h-full">
         <div className="w-full bg-profileColor pt-4 flex flex-col">
           <h3 className="text-center text-xl text-white pb-4 max-sm:pb-0 max-sm:text-base">
-            Rạp Chiếu Phim
+          {t("cinema.cinemaTitle")}
           </h3>
-          <TabsList className="w-full flex items-center max-sm:items-start justify-center gap-2 max-sm:gap-0">
+          <TabsList className="w-full flex items-center max-sm:items-start justify-start gap-2 max-sm:gap-0">
             <TabsTrigger className="relative text-base text-white data-[state=active]:text-white transition-all duration-300 ease-linear
       after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[4px] after:bg-white after:transition-all after:duration-300 after:ease-linear data-[state=active]:after:w-1/2 data-[state=active]:after:left-[25%] max-sm:text-[11px]" value="hot">
-              Phim Hot
+              {t("cinema.hotMovies")}
             </TabsTrigger>
             <TabsTrigger className="relative text-base text-white data-[state=active]:text-white transition-all duration-300 ease-linear
       after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[4px] after:bg-white after:transition-all after:duration-300 after:ease-linear data-[state=active]:after:w-1/2 data-[state=active]:after:left-[25%] max-sm:text-[11px] " value="vn">
-             Phim Việt Nam
+              {t("cinema.vietnamMovies")}
             </TabsTrigger>
             <TabsTrigger className="relative text-base text-white data-[state=active]:text-white transition-all duration-300 ease-linear
       after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[4px] after:bg-white after:transition-all after:duration-300 after:ease-linear data-[state=active]:after:w-1/2 data-[state=active]:after:left-[25%] max-sm:text-[11px]" value="jp">
-             Phim Nhật Bản
+             {t("cinema.japanMovies")}
             </TabsTrigger>
             <TabsTrigger className="relative text-base text-white data-[state=active]:text-white transition-all duration-300 ease-linear
       after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[4px] after:bg-white after:transition-all after:duration-300 after:ease-linear data-[state=active]:after:w-1/2 data-[state=active]:after:left-[25%] max-sm:text-[11px] " value="hk">
-             Phim Hong Kong
+             {t("cinema.hongKongMovies")}
             </TabsTrigger>
             {/* <TabsTrigger className="text-xl text-white" value="gay">
               Gay
@@ -65,7 +67,7 @@ const Cinema = ({ currentData }) => {
                       />
                       <div className="absolute w-full px-4 text-white  bg-[rgba(0,0,0,.4)] bottom-0 z-0 flex items-center justify-between">
                         <span  className="max-sm:text-sm">{collection.title}</span>
-                        <span  className="max-sm:text-sm">Xem: {collection?.view?.length}</span>
+                        <span  className="max-sm:text-sm">{t("cinema.watch")}: {collection?.view?.length}</span>
                       </div>
                     </Link>
                   </div>
@@ -94,7 +96,7 @@ const Cinema = ({ currentData }) => {
                       />
                       <div className="absolute w-full px-4 text-white  bg-[rgba(0,0,0,.4)] bottom-0 z-0 flex items-center justify-between">
                         <span className="max-sm:text-sm">{collection.title}</span>
-                        <span className="max-sm:text-sm">Xem: {collection?.view?.length}</span>
+                        <span className="max-sm:text-sm">{t("cinema.watch")}: {collection?.view?.length}</span>
                       </div>
                     </Link>
                   </div>
@@ -123,7 +125,7 @@ const Cinema = ({ currentData }) => {
                       />
                       <div className="absolute w-full px-4 text-white  bg-[rgba(0,0,0,.4)] bottom-0 z-0 flex items-center justify-between">
                         <span className="max-sm:text-sm">{collection.title}</span>
-                        <span className="max-sm:text-sm">Xem: {collection?.view?.length}</span>
+                        <span className="max-sm:text-sm">{t("cinema.watch")}: {collection?.view?.length}</span>
                       </div>
                     </Link>
                   </div>
@@ -152,7 +154,7 @@ const Cinema = ({ currentData }) => {
                       />
                       <div className="absolute w-full px-4 text-white  bg-[rgba(0,0,0,.4)] bottom-0 z-0 flex items-center justify-between">
                         <span className="max-sm:text-sm">{collection.title}</span>
-                        <span className="max-sm:text-sm">Xem: {collection?.view?.length}</span>
+                        <span className="max-sm:text-sm">{t("cinema.watch")}: {collection?.view?.length}</span>
                       </div>
                     </Link>
                   </div>
@@ -182,7 +184,7 @@ const Cinema = ({ currentData }) => {
                       />
                       <div className="absolute w-full px-4 text-white  bg-[rgba(0,0,0,.4)] bottom-0 z-0 flex items-center justify-between">
                         <span className="max-sm:text-sm">{collection.title}</span>
-                        <span className="max-sm:text-sm">Xem: {collection?.view?.length}</span>
+                        <span className="max-sm:text-sm">{t("cinema.watch")}: {collection?.view?.length}</span>
                       </div>
                     </Link>
                   </div>

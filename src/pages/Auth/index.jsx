@@ -9,6 +9,8 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { loginSuccessAction } from "@/stores/actions/authAction";
 import cskh from "@/assets/cskh.png"
+import { useTranslation } from "react-i18next";
+import TinyFlag from "tiny-flag-react";
 const Auth = () => {
   const {
     register,
@@ -22,12 +24,20 @@ const Auth = () => {
       password: "",
     },
   });
+  const [t, i18n] = useTranslation("global");
   const { isLoggedIn, token } = useSelector((state) => state.auth);
   const [registerPage, setRegisterPage] = useState(true);
   const [hiddenPassword, setHiddenPassword] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isLanguageDropdownOpen, setLanguageDropdownOpen] = useState(false);
 
+  const handleChangeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    localStorage.setItem("language", lng);
+    setLanguageDropdownOpen(false); 
+  };
+  
   const onSubmit = async (values) => {
     if (!registerPage) {
       try {
@@ -83,20 +93,96 @@ const Auth = () => {
               className="w-full h-full object-cover"
             />
           </div>
-          <ChevronLeft
-            onClick={() => {
-              navigate("/");
-              resetForm();
-            }}
-            className="absolute top-0 z-30 left-4 text-white cursor-pointer"
-            size={40}
-          />
+          <div className="flex items-center justify-between absolute z-50 w-full">
+            {/* Back Navigation Icon */}
+            <ChevronLeft
+              onClick={() => {
+                navigate("/");
+                resetForm();
+              }}
+              className="text-white cursor-pointer"
+              size={40}
+            />
+
+            {/* Language Selector Dropdown */}
+            <div className="px-2">
+              <button
+                onClick={() => setLanguageDropdownOpen(!isLanguageDropdownOpen)}
+                className="text-white font-semibold cursor-pointer text-sm bg-gray-700 rounded px-3 py-1 hover:bg-gray-600"
+              >
+                {t("languageSelector")}
+              </button>
+
+              {isLanguageDropdownOpen && (
+                <div className="absolute right-0 mx-2 mt-2 bg-white shadow-md rounded w-[140px] overflow-hidden">
+                  <button
+                    onClick={() => handleChangeLanguage("vn")}
+                    className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-200 cursor-pointer"
+                  >
+                    <div className="flex items-center gap-2">
+                    <TinyFlag
+                      country="VN" // ISO 3166-1 alpha-2 code
+                      alt="United States Flag" // Used as the image alt tag
+                      fallbackImageURL="https://cdn.jsdelivr.net/npm/react-flagkit@1.0.2/img/SVG/VN.svg" 
+                    /> 
+                    <span>Việt Nam</span>
+                    </div>
+                  </button>
+                  <button
+                    onClick={() => handleChangeLanguage("en")}
+                    className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-200 cursor-pointer"
+                  >
+                     <div className="flex items-center gap-2">
+                    <TinyFlag
+                      country="US" // ISO 3166-1 alpha-2 code
+                      alt="United States Flag" // Used as the image alt tag
+                      fallbackImageURL="https://cdn.jsdelivr.net/npm/react-flagkit@1.0.2/img/SVG/US.svg" 
+                    /> 
+                    <span>English</span>
+                    </div>
+                  </button>
+                  <button
+                    onClick={() => handleChangeLanguage("de")}
+                    className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-200 cursor-pointer"
+                  >
+                    <div className="flex items-center gap-2">
+                    <TinyFlag
+                      country="DE" // ISO 3166-1 alpha-2 code
+                      alt="United States Flag" // Used as the image alt tag
+                      fallbackImageURL="https://cdn.jsdelivr.net/npm/react-flagkit@1.0.2/img/SVG/DE.svg" 
+                    /> 
+                    <span>Deutsch</span>
+                    </div>
+                    
+                  </button>
+                  <button
+                    onClick={() => handleChangeLanguage("kr")}
+                    className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-200 cursor-pointer"
+                  >
+                    <div className="flex items-center gap-2">
+                    <TinyFlag
+                      country="KR" // ISO 3166-1 alpha-2 code
+                      alt="United States Flag" // Used as the image alt tag
+                      fallbackImageURL="https://cdn.jsdelivr.net/npm/react-flagkit@1.0.2/img/SVG/KR.svg" 
+                    /> 
+                    <span>한국어</span>
+                    </div>
+                     
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+
+
           <div className="bg-customColor w-full h-screen z-10 absolute">
             <div className="absolute top-12 left-[25%] w-[220px] h-[168px]">
               <img src={auth} alt="logo auth" />
             </div>
             <div className="absolute top-80 flex flex-col gap-10 items-center w-full ">
-              <h3 className="text-4xl font-bold text-white max-sm:text-lg">Đăng Nhập</h3>
+              <h3 className="text-4xl font-bold text-white max-sm:text-lg">{t("loginTitle")}
+
+              </h3>
               <div className="w-full px-12 ">
                 <form
                   onSubmit={handleSubmit(onSubmit)}
@@ -104,7 +190,7 @@ const Auth = () => {
                 >
                   <div className="relative">
                     <input
-                      placeholder="Tên đăng nhập"
+                      placeholder={t("form.usernamePlaceholder")}
                       className="sm:text-xl text-center w-full rounded-full border-none outline-none h-[70px] max-sm:h-[40px] placeholder:max-sm:text-sm placeholder:text-xl placeholder:text-center max-sm:text-xs"
                       {...register("username", { required: true })}
                     />
@@ -117,14 +203,14 @@ const Auth = () => {
                   </div>
                   {errors.username && (
                     <span className="text-red-600 text-xl font-bold max-sm:text-xs">
-                     Tên tài khoản là bắt buộc
+                     {t("form.usernameError")}
                     </span>
                   )}
                   {/* include validation with required or other standard HTML validation rules */}
                   <div className="relative">
                     <input
                       type={hiddenPassword ? "password" : "text"}
-                      placeholder="Mật khẩu"
+                      placeholder={t("form.passwordPlaceholder")}
                       {...register("password", { required: true })}
                       className="sm:text-xl text-center w-full rounded-full border-none outline-none h-[70px] max-sm:h-[40px] placeholder:max-sm:text-sm placeholder:text-xl placeholder:text-center max-sm:text-xs"
                     />
@@ -143,7 +229,7 @@ const Auth = () => {
                   {/* errors will return when field validation fails  */}
                   {errors.password && (
                     <span className="text-red-600 text-xl font-bold max-sm:text-xs">
-                     Mật khẩu là bắt buộc
+                     {t("form.passwordError")}
                     </span>
                   )}
                   <div className="flex items-center justify-between px-2">
@@ -151,7 +237,7 @@ const Auth = () => {
                   <div className="flex items-center gap-1 ">
                     <img src={cskh} alt="cskh" className="w-5 h-5 max-sm:w-4 max-sm:h-4"/>
                     <span className="cursor-pointer text-base text-white max-sm:text-[11px]">
-                     Liên hệ CSKH
+                    {t("contact")}
                     </span>
                   </div>
                   <div >
@@ -162,7 +248,7 @@ const Auth = () => {
                       }}
                       className="text-lg cursor-pointer font-semibold text-white max-sm:text-xs"
                     >
-                      Đăng kí tài khoản
+                       {t("form.signupAccount")}
                     </span>
                   </div>
                   </div>
@@ -170,7 +256,7 @@ const Auth = () => {
                     type="submit"
                     className="bg-[#775fd9] sm:text-xl text-center w-full rounded-full border-none outline-none h-[50px] placeholder:text-xl text-white  font-bold placeholder:text-center max-sm:text-sm max-sm:h-[35px]"
                   >
-                    Đăng nhập
+                    {t("form.loginButton")}
                   </button>
                 </form>
               </div>
@@ -199,7 +285,7 @@ const Auth = () => {
               <img src={auth} alt="logo auth" />
             </div>
             <div className="absolute top-80 flex flex-col gap-10 items-center w-full ">
-              <h3 className="text-4xl font-bold text-white max-sm:text-lg">Đăng Ký</h3>
+              <h3 className="text-4xl font-bold text-white max-sm:text-lg">{t("registerTitle")}</h3>
               <div className="w-full px-12 ">
                 <form
                   onSubmit={handleSubmit(onSubmit)}
@@ -207,7 +293,7 @@ const Auth = () => {
                 >
                   <div className="relative">
                     <input
-                      placeholder="Tên đăng ký"
+                      placeholder={t("form.usernamePlaceholder")}
                       className="sm:text-xl text-center w-full rounded-full border-none outline-none h-[70px] max-sm:h-[40px] placeholder:max-sm:text-sm placeholder:text-xl placeholder:text-center max-sm:text-xs"
                       {...register("username", { required: true })}
                     />
@@ -218,14 +304,14 @@ const Auth = () => {
                   </div>
                   {errors.username && (
                     <span className="text-red-600 text-xl font-bold max-sm:text-xs">
-                    Tên tài khoản là bắt buộc
+                    {t("form.usernameError")}
                     </span>
                   )}
                   {/* include validation with required or other standard HTML validation rules */}
                   <div className="relative">
                     <input
                       type={hiddenPassword ? "password" : "text"}
-                      placeholder="Mật khẩu"
+                      placeholder={t("form.passwordPlaceholder")}
                       {...register("password", { required: true })}
                       className="sm:text-xl text-center w-full rounded-full border-none outline-none h-[70px] max-sm:h-[40px] placeholder:max-sm:text-sm placeholder:text-xl placeholder:text-center max-sm:text-xs"
                     />
@@ -244,19 +330,19 @@ const Auth = () => {
                   {/* errors will return when field validation fails  */}
                   {errors.password && (
                     <span className="text-red-600 text-xl font-bold max-sm:text-xs">
-                    Mật khẩu là bắt buộc
+                    {t("form.passwordError")}
                     </span>
                   )}
                    <div className="w-full flex justify-end px-8" onClick={() => setRegisterPage(!registerPage)}>
                     <span className="font-semibold cursor-pointer text-lg text-white max-sm:text-xs">
-                    Quay về đăng nhập
+                    {t("form.backToLogin")}
                     </span>
                   </div>
                   <button
                     type="submit"
                     className="bg-[#775fd9] sm:text-xl text-center w-full rounded-full border-none outline-none h-[50px] placeholder:text-xl text-white  font-bold placeholder:text-center max-sm:text-sm max-sm:h-[35px]"
                   >
-                    Đăng Ký
+                     {t("form.registerButton")}
                   </button>
                 </form>
               </div>

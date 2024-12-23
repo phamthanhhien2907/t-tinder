@@ -4,11 +4,12 @@ import empty from "@/assets/empty-image-default.png";
 import { ChevronLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 const HistoryDetails = () => {
   const [evalute, setEvalute] = useState(null);
   const [active, setActive] = useState(0);
   const [key, setKey] = useState(1);
-
+  const { t } = useTranslation("global");
   const { roomId, userId } = useParams();
   const navigate = useNavigate();
   const getHistoryLottery = async (roomId, userId) => {
@@ -35,8 +36,8 @@ const HistoryDetails = () => {
               className="absolute top-2 z-30 left-4 text-white cursor-pointer"
               size={30}
             />
-            <span className=" text-lg text-white absolute top-2 left-[25%]">
-              Lịch sử đánh giá phòng {roomId}
+            <span className=" text-lg text-white absolute top-2 left-[40%]">
+                {t("evalute.evaluationHistory")} {roomId}
             </span>
           </div>
         </div>

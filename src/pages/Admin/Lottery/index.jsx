@@ -32,9 +32,9 @@ const Lottery = () => {
   ) : (
     <div className="px-10 py-5">
       <div className="flex items-center justify-between">
-        <p className="text-2xl font-semibold items-center text-center">Cược</p>
+        <p className="font-semibold items-center text-center">QUẢN LÍ CƯỢC</p>
         <Button
-          className="bg-red-500 text-white"
+          className="bg-red-500 text-white hover:bg-red-700"
           onClick={() => navigate("/lottery/new")}
         >
           <Plus className="h-4 w-4 mr-2" />

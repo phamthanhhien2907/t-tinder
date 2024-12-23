@@ -10,8 +10,10 @@ import io from "socket.io-client";
 import Lottery from "../Admin/Lottery";
 import { apiGetAllLottery } from "@/services/evaluateService";
 import { pathImg } from "@/lib/constant";
+import { useTranslation } from "react-i18next";
 
 const Evalute = ({ currentData }) => {
+  const { t } = useTranslation("global");
   const [active, setActive] = useState(0);
   const [lottery, setLottery] = useState([]);
   const [key, setKey] = useState(1);
@@ -27,7 +29,7 @@ const Evalute = ({ currentData }) => {
       <div className="sticky w-full top-0">
         <div className="w-full h-[50px] bg-profileColor">
           <span className=" text-xl max-sm:text-base py-1 text-white absolute top-2 left-[40%] max-sm:left-[35%]">
-            Sảnh bình chọn
+            {t("evalute.title")}
           </span>
         </div>
       </div>
@@ -39,7 +41,7 @@ const Evalute = ({ currentData }) => {
             } cursor-pointer flex items-center justify-center`}
             onClick={() => setActive(0)}
           >
-            <span className="max-sm:text-xs">Tất cả</span>
+            <span className="max-sm:text-xs">{t("evalute.all")}</span>
           </div>
           <div
             className={`w-full h-[62px] max-sm:h-[50px] ${
@@ -47,7 +49,7 @@ const Evalute = ({ currentData }) => {
             } cursor-pointer flex items-center justify-center`}
             onClick={() => setActive(1)}
           >
-            <span className="max-sm:text-xs">Nâng cấp VIP 1</span>
+            <span className="max-sm:text-xs">{t("evalute.vip_upgrade_1")}</span>
           </div>
           <div
             className={`w-full h-[62px] max-sm:h-[50px] ${
@@ -55,7 +57,7 @@ const Evalute = ({ currentData }) => {
             } cursor-pointer flex items-center justify-center`}
             onClick={() => setActive(2)}
           >
-            <span className="max-sm:text-xs">Nâng cấp VIP 2</span>
+            <span className="max-sm:text-xs">{t("evalute.vip_upgrade_2")}</span>
           </div>
           <div
             className={`w-full h-[62px] max-sm:h-[50px] ${
@@ -63,7 +65,7 @@ const Evalute = ({ currentData }) => {
             } cursor-pointer flex items-center justify-center`}
             onClick={() => setActive(3)}
           >
-            <span className="max-sm:text-xs">Nâng cấp VIP 3</span>
+            <span className="max-sm:text-xs">{t("evalute.vip_upgrade_3")}</span>
           </div>
           <div
             className={`w-full h-[62px] max-sm:h-[50px] ${
@@ -71,7 +73,7 @@ const Evalute = ({ currentData }) => {
             } cursor-pointer flex items-center justify-center`}
             onClick={() => setActive(4)}
           >
-            <span className="max-sm:text-xs">Đánh giá 4</span>
+            <span className="max-sm:text-xs">{t("evalute.vip_upgrade_4")}</span>
           </div>
           <div
             className={`w-full h-[62px] max-sm:h-[50px] ${
@@ -79,7 +81,7 @@ const Evalute = ({ currentData }) => {
             } cursor-pointer flex items-center justify-center`}
             onClick={() => setActive(5)}
           >
-            <span className="max-sm:text-xs">Đánh giá 5</span>
+            <span className="max-sm:text-xs">{t("evalute.vip_upgrade_5")}</span>
           </div>
           <div
             className={`w-full h-[62px] max-sm:h-[50px] ${
@@ -87,7 +89,7 @@ const Evalute = ({ currentData }) => {
             } cursor-pointer flex items-center justify-center`}
             onClick={() => setActive(6)}
           >
-            <span className="max-sm:text-xs">Nâng cấp VIP 6</span>
+            <span className="max-sm:text-xs">{t("evalute.vip_upgrade_6")}</span>
           </div>
         </div>
         {active === 0 && (
@@ -111,7 +113,7 @@ const Evalute = ({ currentData }) => {
                     src={`${pathImg}/images/${lot?.image}`}
                     alt="evalute"
                   />
-                  <span className="max-sm:text-xs">Nâng cấp VIP {index + 1} </span>
+                  <span className="max-sm:text-xs">{t("evalute.vip_upgrade")} {index + 1} </span>
                 </div>
               </Link>
             ))}
@@ -136,7 +138,7 @@ const Evalute = ({ currentData }) => {
                 src={danhgia1}
                 alt="evalute"
               />
-              <span className="max-sm:text-xs">Nâng cấp VIP 1 </span>
+              <span className="max-sm:text-xs">{t("evalute.all")} </span>
             </div>
           </Link>
           </div>
@@ -160,7 +162,7 @@ const Evalute = ({ currentData }) => {
                 src={danhgia2}
                 alt="evalute"
               />
-              <span className="max-sm:text-xs">Nâng cấp VIP 2 </span>
+              <span className="max-sm:text-xs">{t("evalute.vip_upgrade_2")} </span>
             </div>
           </Link>
           </div>
@@ -184,7 +186,7 @@ const Evalute = ({ currentData }) => {
                 src={danhgia3}
                 alt="evalute"
               />
-              <span className="max-sm:text-xs">Nâng cấp VIP 3 </span>
+              <span className="max-sm:text-xs">{t("evalute.vip_upgrade_3")} </span>
             </div>
           </Link>
           </div>
@@ -208,7 +210,7 @@ const Evalute = ({ currentData }) => {
                 src={danhgia4}
                 alt="evalute"
               />
-              <span className="max-sm:text-xs">Nâng cấp VIP 4 </span>
+              <span className="max-sm:text-xs">{t("evalute.vip_upgrade_4")} </span>
             </div>
           </Link>
           </div>
@@ -257,7 +259,7 @@ const Evalute = ({ currentData }) => {
                 src={danhgia6}
                 alt="evalute"
               />
-              <span className="max-sm:text-xs">Nâng cấp VIP 6 </span>
+              <span className="max-sm:text-xs">{t("evalute.vip_upgrade_6")} </span>
             </div>
           </Link>
           </div>

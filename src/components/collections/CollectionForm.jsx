@@ -13,13 +13,14 @@ import { Textarea } from "../ui/textarea";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Delete from "../custom ui/Delete";
-import { useNavigate } from "react-router-dom";
-import { apiCreateCollection } from "@/services/collectionService";
+import { useNavigate, useParams } from "react-router-dom";
+import { apiCreateCollection, apiUpdateCollectionById } from "@/services/collectionService";
 
 const CollectionForm = ({ initialData }) => {
   const navigate = useNavigate();
   const [isLoadding, setIsLoadding] = useState(false);
   const [invisible, setInvisible] = useState(false);
+  const { id } = useParams();
   const { register, handleSubmit, watch, setValue, getValues, onChange } =
     useForm({
       defaultValues: initialData
@@ -42,24 +43,41 @@ const CollectionForm = ({ initialData }) => {
       // const url = initialData
       //   ? `/api/collections/${initialData?._id}`
       //   : "/api/collections/new";
-      const formData = new FormData();
-      const selectedFile = getValues().image[0];
-      const selectedVideo = getValues().video[0];
-      if (selectedFile && selectedVideo) {
-        formData.append("images", selectedFile, selectedFile.name);
-        formData.append("videos", selectedVideo, selectedVideo.name);
-      }
+      if(location.pathname === "/collection/new") {
+        const formData = new FormData();
+        const selectedFile = getValues().image[0];
+        const selectedVideo = getValues().video[0];
+        if (selectedFile && selectedVideo) {
+          formData.append("images", selectedFile, selectedFile.name);
+          formData.append("videos", selectedVideo, selectedVideo.name);
+        }
 
-      formData.append("title", values.title);
-      formData.append("category", values.category);
-      console.log(formData);
-      const res = await apiCreateCollection(formData);
-      console.log(res);
-      if (res.success) {
-        setIsLoadding(false);
-        toast.success(`Collection ${initialData ? "updated" : "created"} `);
-        // window.location.href = "/collections";
-        navigate("/collection");
+        formData.append("title", values.title);
+        formData.append("category", values.category);
+        const res = await apiCreateCollection(formData);
+        if (res.success) {
+          setIsLoadding(false);
+          toast.success(`Collection ${initialData ? "updated" : "created"} `);
+          navigate("/");
+        }
+      } else{
+        const formData = new FormData();
+        const selectedFile = getValues().image[0];
+        const selectedVideo = getValues().video[0];
+        if (selectedFile && selectedVideo) {
+          formData.append("images", selectedFile, selectedFile.name);
+          formData.append("videos", selectedVideo, selectedVideo.name);
+        }
+
+        formData.append("title", values.title);
+        formData.append("category", values.category);
+        const res = await apiUpdateCollectionById(id, formData);
+        if (res.success) {
+          setIsLoadding(false);
+          toast.success(`Collection ${initialData ? "updated" : "created"} `);
+          // window.location.href = "/collections";
+          navigate("/");
+        }
       }
     } catch (error) {
       console.log("[collections_POST]", error);
@@ -91,7 +109,7 @@ const CollectionForm = ({ initialData }) => {
           />
         </div>
         <div className="flex gap-4 flex-col">
-          <label for="category">Thể loại:</label>
+          <label htmlFor="category">Thể loại:</label>
           <select
             onClick={() => setInvisible(!invisible)}
             className="border px-4 py-2 border-black"
@@ -143,13 +161,13 @@ const CollectionForm = ({ initialData }) => {
           /> */}
 
         <div className="flex gap-10">
-          <Button type="submit" className="bg-blue-500 text-white">
+          <Button type="submit" className="bg-blue-500 text-white hover:bg-blue-700">
             Gửi
           </Button>
           <Button
             type="button"
-            onClick={() => navigate("/collection")}
-            className="bg-blue-500 text-white"
+            onClick={() => navigate("/")}
+            className="bg-blue-500 text-white hover:bg-blue-700"
           >
             Quay về
           </Button>

@@ -68,7 +68,7 @@ const CustomerForm = ({ initialData }) => {
           <p className="text-xl font-semibold">
             Chỉnh sửa người dùng và nạp tiền
           </p>
-          <Delete item="collection" id={initialData?._id} />
+          <Delete item="customs" id={initialData?._id} />
         </div>
       ) : (
         <p className="text-xl font-semibold">Thêm người dùng</p>
@@ -77,15 +77,22 @@ const CustomerForm = ({ initialData }) => {
       <Separator className="bg-grey-1 mt-4 mb-7" />
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         <label>Nạp tiền:</label>
-
         <Input
           {...register("desposit")}
           placeholder="Số tiền cần nộp"
           onKeyDown={handleKeyPress}
+          type="number"
+          style={{
+            WebkitAppearance: "none",
+            MozAppearance: "textfield",
+          }}
         />
         <div className="flex items-center gap-4">
-          <label for="vip">Chọn Vip cho khách hàng (không bắt buộc):</label>
-          <select className="border px-4 border-black" {...register("vip")}>
+          <label htmlFor="vip">Chọn Vip cho khách hàng (không bắt buộc):</label>
+          <select
+            className="border px-4 border-black"
+            {...register("vip")}
+          >
             <option value="vip0">Vip 0</option>
             <option value="vip1">Vip 1</option>
             <option value="vip2">Vip 2</option>
@@ -108,13 +115,13 @@ const CustomerForm = ({ initialData }) => {
         /> */}
 
         <div className="flex gap-10">
-          <Button type="submit" className="bg-blue-500 text-white">
+          <Button type="submit" className="bg-blue-500 text-white hover:bg-blue-700">
             Gửi
           </Button>
           <Button
             type="button"
             onClick={() => navigate("/collection")}
-            className="bg-blue-500 text-white"
+            className="bg-blue-500 text-white hover:bg-blue-700"
           >
             Quay về
           </Button>

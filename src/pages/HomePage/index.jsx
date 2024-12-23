@@ -14,14 +14,16 @@ import { useDispatch } from "react-redux";
 import Marquee from "react-fast-marquee";
 import CampaignIcon from '@mui/icons-material/Campaign';
 import { pathImg } from "@/lib/constant";
+import { useTranslation } from "react-i18next";
 const HomePage = ({ currentData }) => {
   const dispatch = useDispatch();
-
   const [collection, setCollection] = useState(null);
+  const [t] = useTranslation("global");
   const getCollection = async () => {
     const data = await apiGetCollection();
     if (data.success) setCollection(data.collections);
   };
+ 
   useEffect(() => {
     getCollection();
   }, []);
@@ -29,17 +31,18 @@ const HomePage = ({ currentData }) => {
   return (
     <div className="w-full h-screen overflow-x-hidden tabs-list">
       <SlickSlider />
+
       <div className="w-full bg-[#fffbe8] flex gap-4 px-4 text-red-500">
         <CampaignIcon sx={{ fontSize : "30px" }}/>
         <Marquee>
-          Chào mừng đã đến CLUB SKY 36 Dịch vụ cung cấp gái gọi, PGA, Baby 63 tỉnh thành. Dịch vụ uy tín nhất VN, báo giá trực tiếp, thông tin minh bạch rõ ràng. Cam kết phục vụ quý khách tận tình 24/24.Bảo Mật - Uy Tín - Chất Lượng
+          {t("home.marquee")}
         </Marquee>
       </div>
       <div className="flex items-center px-4 py-4 justify-between w-full">
         <div className="flex items-center gap-2">
           <div className="w-[3px] h-[22px] bg-[#775fd9]"></div>
           <span className="text-[#c24491]  font-semibold">
-            Gói nhiệm vụ tình 1 đêm
+          {t("home.mission")}
           </span>
         </div>
         <div
@@ -53,7 +56,7 @@ const HomePage = ({ currentData }) => {
             className="text-xs
           "
           >
-            Xem thêm
+           {t("home.more")}
           </span>
           <ChevronRight />
         </div>
@@ -65,7 +68,7 @@ const HomePage = ({ currentData }) => {
             src={danhgia1}
             alt="evalute"
           />
-          <span className="text-base max-sm:text-xs">Nâng cấp VIP 1</span>
+          <span className="text-base max-sm:text-xs">{t("home.vip1")}</span>
         </div>
         <div className="flex flex-col items-center  gap-2 cursor-pointer">
           <img
@@ -73,7 +76,7 @@ const HomePage = ({ currentData }) => {
             src={danhgia2}
             alt="evalute"
           />
-          <span className="text-base max-sm:text-xs">Nâng cấp VIP 2</span>
+          <span className="text-base max-sm:text-xs">{t("home.vip2")}</span>
         </div>
         <div className="flex flex-col items-center  gap-2 cursor-pointer">
           <img
@@ -81,7 +84,7 @@ const HomePage = ({ currentData }) => {
             src={danhgia3}
             alt="evalute"
           />
-          <span className="text-base max-sm:text-xs">Nâng cấp VIP 3</span>
+          <span className="text-base max-sm:text-xs">{t("home.vip3")}</span>
         </div>
       </div>
      
@@ -90,31 +93,7 @@ const HomePage = ({ currentData }) => {
         <div className="flex items-center gap-2">
           <div className="w-[3px] h-[22px] bg-[#775fd9]"></div>
           <span className="text-[#c24491] text-base font-semibold">
-            Phổ biến
-          </span>
-        </div>
-        <div
-          className="flex items-center gap-2 text-gray-500 cursor-auto"
-          onClick={() => {
-            localStorage.setItem("page", 3);
-            window.location.reload();
-          }}
-        >
-          <span
-            className="text-xs
-          "
-          >
-            Xem thêm
-          </span>
-          <ChevronRight />
-        </div>
-      </div>
-      <CustomSlide collection={collection} currentData={currentData} />
-      <div className="flex items-center px-4 py-2 justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-[3px] h-[22px] bg-[#775fd9]"></div>
-          <span className="text-[#c24491] text-base font-semibold">
-            Đề xuất
+          {t("home.popular")}
           </span>
         </div>
         <div
@@ -128,7 +107,31 @@ const HomePage = ({ currentData }) => {
             className="text-xs
           "
           >
-            Xem thêm
+            {t("home.more")}
+          </span>
+          <ChevronRight />
+        </div>
+      </div>
+      <CustomSlide collection={collection} currentData={currentData} />
+      <div className="flex items-center px-4 py-2 justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-[3px] h-[22px] bg-[#775fd9]"></div>
+          <span className="text-[#c24491] text-base font-semibold">
+          {t("home.propose")}
+          </span>
+        </div>
+        <div
+          className="flex items-center gap-2 text-gray-500 cursor-pointer"
+          onClick={() => {
+            localStorage.setItem("page", 3);
+            window.location.reload();
+          }}
+        >
+          <span
+            className="text-xs
+          "
+          >
+            {t("home.more")}
           </span>
           <ChevronRight />
         </div>
@@ -162,7 +165,7 @@ const HomePage = ({ currentData }) => {
           ))}
       </div>
       <span className="w-full h-20 pt-12 pb-20 flex justify-center font-semibold max-sm:text-sm">
-        Đang cập nhật thêm video mới
+      {t("home.information")}
       </span>
     </div>
   );

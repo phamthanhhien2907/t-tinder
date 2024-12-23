@@ -9,17 +9,17 @@ const WithDrawalHistory = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const getWithDrawalHistory = async () => {
+  const getWithDrawalHistory = async (id) => {
     const data = await apiGetWithDrawById(id);
     console.log(data);
     if (data.success) setWithDraw(data?.withDraws);
   };
   useEffect(() => {
-    getWithDrawalHistory();
+    getWithDrawalHistory(id);
   }, [id]);
   return (
-    <div className="h-screen">
-      <div className="relative w-full mx-auto">
+    <div className="">
+      <div className="relative w-full mx-auto ">
         <div className="sticky w-full top-0">
           <div className="w-full h-[50px] bg-profileColor">
             <ChevronLeft
@@ -35,14 +35,14 @@ const WithDrawalHistory = () => {
             </span>
           </div>
         </div>
-        <div>
+        <div className="h-screen overflow-y-scroll tabs-list pt-12">
           {withDraw.length > 0 ? (
-            <div className="bg-gray-200 h-fit">
-              <div className="w-full px-2 ">
+            <div className="bg-gray-200 py-2">
+              <div className="w-full px-2 flex flex-col gap-2">
                 {withDraw?.map((el, index) => (
                   <div
                     key={index}
-                    className="w-full h-fit border-b-2 bg-white flex flex-col gap-1 px-2 py-2 rounded-xl"
+                    className="w-full  border-b-2 bg-white flex flex-col gap-1 px-2 py-2 rounded-xl"
                   >
                     <div className="flex flex-col gap-2">
                       <span className="text-lg font-semibold text-gray-500">
@@ -85,7 +85,7 @@ const WithDrawalHistory = () => {
             </div>
           )}
         </div>
-        ;
+        
       </div>
     </div>
   );

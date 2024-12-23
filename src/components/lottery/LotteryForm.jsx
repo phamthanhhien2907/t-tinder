@@ -123,7 +123,7 @@ const LotteryForm = ({ initialData }) => {
         {initialData && (
           <div className="flex items-start flex-col gap-4">
             <label for="result">
-              Kết quả dự đoán (Nếu không điền tự động random ra kết quả) :
+              Kết quả dự đoán (Nếu chọn thì tự động random ra kết quả) :
             </label>
             <select
               multiple
@@ -169,13 +169,13 @@ const LotteryForm = ({ initialData }) => {
           </div>
         )}
         <div className="flex gap-10">
-          <Button type="submit" className="bg-blue-500 text-white">
+          <Button type="submit" className="bg-blue-500 text-white hover:bg-blue-700">
             Gửi
           </Button>
           <Button
             type="button"
             onClick={() => navigate("/lottery")}
-            className="bg-blue-500 text-white"
+            className="bg-blue-500 text-white hover:bg-blue-700"
           >
             Quay về
           </Button>

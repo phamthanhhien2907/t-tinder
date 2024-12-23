@@ -9,34 +9,34 @@ import {
 export const pathImg = "https://t-tinder-server.onrender.com/";
 
 export const navLinks = [
+  // {
+  //   url: "/",
+  //   label: "Trang chủ",
+  // },
   {
     url: "/",
-    label: "Trang chủ",
-  },
-  {
-    url: "/collection",
-    label: "Quản lí phim",
+    label: "QUẢN LÍ PHIM",
   },
   {
     url: "/lottery",
-    label: "Quản lí cược",
+    label: "QUẢN LÍ CƯỢC",
   },
 
   {
     url: "/evaluatehistory",
-    label: "Lịch sử đánh giá",
+    label: "LỊCH SỬ ĐÁNH GIÁ",
   },
 
   {
     url: "/withdrawalhistory",
-    label: "Lịch sử rút tiền",
+    label: "LỊCH SỬ RÚT TIỀN",
   },
   {
     url: "/withdtransformhistory",
-    label: "Rút tiền",
+    label: "RÚT TIỀN",
   },
   {
     url: "/customers",
-    label: "Quản lí người dùng và nạp tiền",
+    label: "QUẢN LÍ NGƯỜI DÙNG VÀ NẠP TIỀN",
   },
 ];

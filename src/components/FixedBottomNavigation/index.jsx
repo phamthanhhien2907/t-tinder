@@ -16,16 +16,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCurrent } from "@/stores/actions/userAction";
 import beauty from "@/assets/beauty.png"
 import { useMediaQuery } from "@mui/material";
+import { useTranslation } from "react-i18next";
+
 export default function FixedBottomNavigation() {
   const { currentData } = useSelector((state) => state.user);
   const { isLoggedIn, token } = useSelector((state) => state.auth);
   const isMobile = useMediaQuery("(max-width:600px)");
+  
   const dispatch = useDispatch();
+  const { t } = useTranslation("global");
   useEffect(() => {
     if (isLoggedIn && token) {
-      setTimeout(() => {
-        dispatch(getCurrent());
-      }, 1000);
+      dispatch(getCurrent());
     }
   }, [isLoggedIn, token, dispatch]);
   const messageExamples = [
@@ -44,15 +46,16 @@ export default function FixedBottomNavigation() {
     {
       page: <Profile />,
     },
-  ]
+  ];
+
   const page = localStorage.getItem("page");
-  const [value, setValue] = useState(Number(page));
+  const [value, setValue] = useState(Number(page) || 0);
   const [activeComponent, setActiveComponent] = useState(
-    messageExamples[4].page
+    messageExamples[value].page
   );
   useEffect(() => {
     setActiveComponent(messageExamples[value].page);
-  }, [value, messageExamples]);
+  }, [value]);
   return (
       <Box
       sx={{
@@ -86,7 +89,7 @@ export default function FixedBottomNavigation() {
                 color: "black",
               }}
             >
-              Trang chủ
+              {t('navigation.home')}
             </span>
           }
             sx={{
@@ -107,7 +110,7 @@ export default function FixedBottomNavigation() {
                 color: "black",
               }}
             >
-              {isMobile ? "Sảnh " : "Sảnh bình chọn"}
+              {isMobile ? t('navigation.evalutePhone') : t('navigation.evalute')}
             </span>
           }
             sx={{
@@ -142,7 +145,7 @@ export default function FixedBottomNavigation() {
                   color: "black",
                 }}
               >
-                {isMobile ? "Rạp phim" : "Rạp chiếu phim"}
+                {isMobile ? t('navigation.cinemaPhone') : t('navigation.cinema')}
               </span>
             }
             sx={{
@@ -164,7 +167,7 @@ export default function FixedBottomNavigation() {
                 color: "black",
               }}
             >
-              Hồ sơ
+              {t('navigation.profile')}
             </span>
           }
             sx={{

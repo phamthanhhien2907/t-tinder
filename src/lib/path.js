@@ -6,7 +6,7 @@ const path = {
   HOME: "",
   LOGIN: "sign-in",
   PROFILE: "profile",
-  COLLECTION: "collection",
+  COLLECTION: "",
   CUSTOMER: "customers",
   LOTTERY: "lottery",
   INFORMATION: "information",

@@ -6,19 +6,18 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const updateName = () => {
   const { currentData } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getCurrent());
-  }, []);
-
   const [isLoadding, setIsLoadding] = useState(false);
   const [invisible, setInvisible] = useState(false);
-  const { register, handleSubmit, watch, setValue, getValues, onChange } =
+  const { t } = useTranslation('global');
+  
+  const { register, handleSubmit } =
     useForm({
       name: "",
     });
@@ -37,7 +36,6 @@ const updateName = () => {
       const res = await apiUpdatedUser(currentData?._id, {
         fullName: values?.name,
       });
-      console.log(res);
       if (res.success) {
         setIsLoadding(false);
         // toast.success(`Collection ${initialData ? "updated" : "created"} `);
@@ -51,7 +49,7 @@ const updateName = () => {
   };
   useEffect(() => {
     dispatch(getCurrent());
-  }, []);
+  }, [dispatch]);
 
   // Ví dụ sử dụng:
 
@@ -70,24 +68,24 @@ const updateName = () => {
                   size={30}
                 />
                 <span className=" text-xl text-white absolute top-2 left-[40%]">
-                  Sửa đổi tên
+                  {t("setName.editName")}
                 </span>
                 <Button
                   type="submit"
                   className=" text-white text-lg absolute top-1 right-0"
                 >
-                  Lưu
+                  {t("setName.save")}
                 </Button>
               </div>
             </div>
             <div className="flex flex-col gap-4">
               <div className="w-[90%] mx-auto h-[0.5px] bg-[#ebedf0]"></div>
               <div className="flex items-center gap-8 px-4 py-2">
-                <span>Họ tên thật</span>
+                <span>{t("setName.realName")}</span>
                 <div className="">
                   <input
                     {...register("name")}
-                    placeholder="Họ và tên"
+                    placeholder={t("setName.realName")}
                     onKeyDown={handleKeyPress}
                     className="outline-none border-none"
                   />
@@ -95,8 +93,7 @@ const updateName = () => {
               </div>
               <div className="flex items-center gap-8 px-4 py-2">
                 <span className="text-red-500">
-                  Để đảm bảo an toàn cho tài khoản của bạn, họ tên thật cần phải
-                  giống với tên trên thẻ ngân hàng.
+                  {t("setName.realNameNote")}
                 </span>
               </div>
 

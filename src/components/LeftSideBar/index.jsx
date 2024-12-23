@@ -1,17 +1,17 @@
 import { navLinks } from "@/lib/constant";
 import { Link } from "react-router-dom";
-import logo from "@/assets/auth.png";
+import logo from "@/assets/beauty.png";
 import { logout } from "@/stores/actions/authAction";
 import { useDispatch } from "react-redux";
 
 const LeftSideBar = () => {
   const dispatch = useDispatch();
   return (
-    <div className="h-fit left-0 top-0 sticky p-10 flex flex-col gap-16 bg-blue-2 shadow-xl max-lg:hidden w-full">
+    <div className="left-0 top-0 sticky p-10 flex flex-col gap-10 bg-blue-2 shadow-xl max-lg:hidden w-full h-screen">
       <Link to="/">
-        <img src={logo} alt="logo" width={120} height={70} />
+        <img src={logo} alt="logo" width={120} height={70} className="object-cover" />
       </Link>
-      <div className="flex flex-col gap-12 ">
+      <div className="flex flex-col gap-10 ">
         {navLinks?.map((link) => (
           <Link
             to={link?.url}
@@ -27,7 +27,7 @@ const LeftSideBar = () => {
             className="flex items-center w-full text-lg font-semibold  bg-profileColor px-4 py-2 justify-start text-white rounded-xl"
             onClick={() => dispatch(logout())}
           >
-            Đăng xuất
+            ĐĂNG XUẤT
           </button>
         </div>
       </div>

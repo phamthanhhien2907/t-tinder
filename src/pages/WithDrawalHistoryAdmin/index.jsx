@@ -54,7 +54,7 @@ const WithDrawalHistoryAdmin = () => {
                   ?.map((el) => (
                     <div
                       key={el?._id}
-                      className="w-full h-fit border-b-2 bg-white flex justify-between gap-1 px-2 py-2 rounded-xl px-8"
+                      className="w-full h-fit border-b-2 bg-white flex justify-between gap-1 py-2 rounded-xl px-8"
                     >
                       <div>
                         <div className="flex flex-col gap-2">

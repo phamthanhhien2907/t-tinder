@@ -68,11 +68,11 @@ function App() {
           <Routes>
             {currentData && currentData?.role === "admin" && (
               <Route element={<Admin />} path={path.ADMIN}>
-                <Route
+                {/* <Route
                   index
                   element={<AdminDashBoard />}
                   path={path.ADMINDASHBOARD}
-                />
+                /> */}
 
                 <Route element={<Collections />} path={path.COLLECTION} />
                 <Route

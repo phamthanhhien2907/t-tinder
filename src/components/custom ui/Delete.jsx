@@ -55,23 +55,23 @@ const Delete = ({ id, item }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <Button className="bg-red-500 text-white">
+        <Button className="bg-red-500 text-white hover:bg-red-700">
           <Trash className="h-4 w-4" />
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-white text-grey-1">
         <AlertDialogHeader>
           <AlertDialogTitle className="text-red-500">
-            Are you absolutely sure?
+            Bạn có chắc chắn muốn xóa không?
           </AlertDialogTitle>
-          <AlertDialogDescription>
-            Hành động này không thể khôi phục lại.Bạn chắc chắn muốn xóa không?
+          <AlertDialogDescription className="font-semibold">
+            Hành động này không thể khôi phục lại dữ liệu.Bạn chắc chắn muốn xóa không?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel  className="bg-blue-500 text-white hover:bg-blue-600 hover:text-white">Cancel</AlertDialogCancel>
           <AlertDialogAction
-            className="bg-red-500 text-white"
+            className="bg-red-500 text-white hover:bg-red-700"
             onClick={() => onDelete(id)}
           >
             Continue
