@@ -30,18 +30,18 @@ const Lottery = () => {
   return isLoading ? (
     <Loader />
   ) : (
-    <div className="px-10 py-5">
+    <div className="px-10 py-5 max-sm:px-4 max-sm:py-2">
       <div className="flex items-center justify-between">
-        <p className="font-semibold items-center text-center">QUẢN LÍ CƯỢC</p>
+        <p className="font-semibold items-center text-center max-sm:text-xs">QUẢN LÍ CƯỢC</p>
         <Button
-          className="bg-red-500 text-white hover:bg-red-700"
+          className="bg-red-500 text-white hover:bg-red-700  max-sm:text-xs"
           onClick={() => navigate("/lottery/new")}
         >
           <Plus className="h-4 w-4 mr-2" />
           Thêm cược
         </Button>
       </div>
-      <Separator className="bg-grey-1 my-4" />
+      <Separator className="bg-grey-1 my-4 max-sm:my-0" />
       <DataTable columns={columns} data={lotteries} searchKey="room" />
     </div>
   );

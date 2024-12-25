@@ -20,7 +20,7 @@ const CollectionDetails = () => {
   };
   useEffect(() => {
     getCollectionDetails(id);
-  }, []);
+  }, [id]);
   return isLoading ? (
     <Loader />
   ) : (

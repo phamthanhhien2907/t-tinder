@@ -69,12 +69,12 @@ const Delete = ({ id, item }) => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel  className="bg-blue-500 text-white hover:bg-blue-600 hover:text-white">Cancel</AlertDialogCancel>
+          <AlertDialogCancel  className="bg-blue-500 text-white hover:bg-blue-600 hover:text-white">Quay lại</AlertDialogCancel>
           <AlertDialogAction
             className="bg-red-500 text-white hover:bg-red-700"
             onClick={() => onDelete(id)}
           >
-            Continue
+            Xóa
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

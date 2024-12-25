@@ -22,6 +22,7 @@ const Auth = () => {
     defaultValues: {
       username: "",
       password: "",
+      code : ""
     },
   });
   const [t, i18n] = useTranslation("global");
@@ -78,6 +79,8 @@ const Auth = () => {
   const resetForm = () => {
     resetField("password");
     resetField("username");
+    resetField("code");
+
   };
   useEffect(() => {
     if (isLoggedIn && token) navigate("/");
@@ -202,7 +205,7 @@ const Auth = () => {
                     )}
                   </div>
                   {errors.username && (
-                    <span className="text-red-600 text-xl font-bold max-sm:text-xs">
+                    <span className="text-red-600 text-base font-bold max-sm:text-xs">
                      {t("form.usernameError")}
                     </span>
                   )}
@@ -228,7 +231,7 @@ const Auth = () => {
                   </div>
                   {/* errors will return when field validation fails  */}
                   {errors.password && (
-                    <span className="text-red-600 text-xl font-bold max-sm:text-xs">
+                    <span className="text-red-600 text-base font-bold max-sm:text-xs">
                      {t("form.passwordError")}
                     </span>
                   )}
@@ -297,13 +300,15 @@ const Auth = () => {
                       className="sm:text-xl text-center w-full rounded-full border-none outline-none h-[70px] max-sm:h-[40px] placeholder:max-sm:text-sm placeholder:text-xl placeholder:text-center max-sm:text-xs"
                       {...register("username", { required: true })}
                     />
-                    <X
-                      onClick={handleClick}
-                      className="absolute max-sm:w-4 top-6 text-gray-400 right-4 max-sm:top-2"
-                    />
+                    {watch("username").length > 0 && (
+                      <X
+                        onClick={handleClick}
+                        className="absolute max-sm:w-4 top-6 text-gray-400 right-4 max-sm:top-2"
+                      />
+                    )}
                   </div>
                   {errors.username && (
-                    <span className="text-red-600 text-xl font-bold max-sm:text-xs">
+                    <span className="text-red-600 text-base font-bold max-sm:text-xs">
                     {t("form.usernameError")}
                     </span>
                   )}
@@ -329,8 +334,27 @@ const Auth = () => {
                   </div>
                   {/* errors will return when field validation fails  */}
                   {errors.password && (
-                    <span className="text-red-600 text-xl font-bold max-sm:text-xs">
+                    <span className="text-red-600 text-base font-bold max-sm:text-xs">
                     {t("form.passwordError")}
+                    </span>
+                  )}
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder={t("form.codePlaceholder")}
+                      {...register("code", { required: t("form.codedError"), 
+                        validate: (value) => 
+                         {
+                          return  value.length > 6 || t("form.codedLengthError")
+                         }
+                      })}
+                      className="sm:text-xl text-center w-full rounded-full border-none outline-none h-[70px] max-sm:h-[40px] placeholder:max-sm:text-sm placeholder:text-xl placeholder:text-center max-sm:text-xs"
+                    />
+                   
+                  </div>
+                  {errors.code && (
+                    <span className="text-red-600 text-base font-bold max-sm:text-xs">
+                     {errors.code.message}
                     </span>
                   )}
                    <div className="w-full flex justify-end px-8" onClick={() => setRegisterPage(!registerPage)}>

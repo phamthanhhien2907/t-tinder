@@ -15,7 +15,6 @@ const EvaluteHistory = () => {
   const navigate = useNavigate();
 
   const { id } = useParams();
-
   return (
     <div className="w-full h-screen  ">
       <div className="sticky w-full top-0">
@@ -42,7 +41,7 @@ const EvaluteHistory = () => {
           >
             <div className="w-[100%] bg-white cursor-pointer  rounded-2xl h-[140px] flex flex-col items-center ">
               <img
-                className="w-full h-[70%] object-contain rounded-2xl px-4 py-2  "
+                className="w-[90px] h-[70%] object-cover rounded-2xl px-4 py-2  "
                 src={danhgia1}
                 alt="evalute"
               />
@@ -57,7 +56,7 @@ const EvaluteHistory = () => {
           >
             <div className="w-[100%] bg-white cursor-pointer  rounded-2xl h-[140px] flex flex-col items-center">
               <img
-                className="w-full h-[70%] object-contain rounded-2xl px-4 py-2  "
+                className="w-[90px] h-[70%] object-cover rounded-2xl px-4 py-2  "
                 src={danhgia2}
                 alt="evalute"
               />
@@ -72,7 +71,7 @@ const EvaluteHistory = () => {
           >
             <div className="w-[100%] bg-white cursor-pointer  rounded-2xl h-[140px] flex flex-col items-center ">
               <img
-                className="w-full h-[70%] object-contain rounded-2xl px-4 py-2  "
+                className="w-[90px] h-[70%] object-cover rounded-2xl px-4 py-2  "
                 src={danhgia3}
                 alt="evalute"
               />
@@ -87,7 +86,7 @@ const EvaluteHistory = () => {
           >
             <div className="w-[100%] bg-white cursor-pointer  rounded-2xl h-[140px] flex flex-col items-center ">
               <img
-                className="w-full h-[70%] object-contain rounded-2xl px-4 py-2  "
+                className="w-[90px] h-[70%] object-cover rounded-2xl px-4 py-2  "
                 src={danhgia4}
                 alt="evalute"
               />
@@ -102,7 +101,7 @@ const EvaluteHistory = () => {
           >
             <div className="w-[100%] bg-white cursor-pointer  rounded-2xl h-[140px]  flex flex-col items-center">
               <img
-                className="w-full h-[70%] object-contain rounded-2xl px-4 py-2  "
+                className="w-[90px] h-[70%] object-cover rounded-2xl px-4 py-2  "
                 src={danhgia5}
                 alt="evalute"
               />
@@ -117,7 +116,7 @@ const EvaluteHistory = () => {
           >
             <div className="w-[100%] bg-white cursor-pointer  rounded-2xl h-[140px]  flex flex-col items-center">
               <img
-                className="w-full h-[70%] object-contain rounded-2xl px-4 py-2  "
+                className="w-[90px] h-[70%] object-cover rounded-2xl px-4 py-2  "
                 src={danhgia6}
                 alt="evalute"
               />

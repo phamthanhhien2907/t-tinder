@@ -43,7 +43,7 @@ const HistoryDetails = () => {
         </div>
         <div>
           {filterUser?.length > 0 ? (
-            <div className="bg-gray-200 h-fit">
+            <div className="bg-gray-200 h-fit pt-2">
               <div className="w-full px-2 ">
                 {filterUser &&
                   filterUser?.reverse()?.map((el) => (
@@ -137,7 +137,7 @@ const HistoryDetails = () => {
             </div>
           )}
         </div>
-        ;
+        
       </div>
     </div>
   );

@@ -5,11 +5,13 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const updateGender = () => {
   const { currentData } = useSelector((state) => state.user);
   const [isLoadding, setIsLoadding] = useState(false);
+  const { t } = useTranslation('global');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { register, handleSubmit, watch, setValue, getValues, onChange } =
@@ -43,7 +45,7 @@ const updateGender = () => {
   };
   useEffect(() => {
     dispatch(getCurrent());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -60,28 +62,28 @@ const updateGender = () => {
                   size={30}
                 />
                 <span className=" text-xl text-white absolute top-2 left-[40%]">
-                  Giới tính
+                  {t("gender.screen.header.title")}
                 </span>
                 <Button
                   type="submit"
                   className=" text-white text-lg absolute top-1 right-0"
                 >
-                  Lưu
+                  {t("gender.screen.header.saveButton")}
                 </Button>
               </div>
             </div>
             <div className="flex flex-col gap-4 px-4 py-4 w-full bg-gray-100">
               <div className="flex flex-col ">
-                <div className="flex gap-4 items-center w-full py-2 border-b-[2px]  ">
+                <div className="flex gap-4 items-center w-full pt-2 pb-4 border-b-[2px]  ">
                   <input type="radio" {...register("gender")} value="male" />
-                  <label className="text-sm font-semibold" for="male">
-                    Nam
+                  <label className="text-sm font-semibold" htmlFor="male">
+                  {t("gender.screen.form.genderOptions.male")}
                   </label>
                 </div>
-                <div className="flex gap-4 items-center w-full py-2">
+                <div className="flex gap-4 items-center w-full pt-4">
                   <input type="radio" value="female" {...register("gender")} />
-                  <label className="text-sm font-semibold" for="female">
-                    Nữ
+                  <label className="text-sm font-semibold" htmlFor="female">
+                  {t("gender.screen.form.genderOptions.female")}
                   </label>
                 </div>
               </div>

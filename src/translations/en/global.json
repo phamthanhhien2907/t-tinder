@@ -23,7 +23,7 @@
     "watch": "Watch"
   },
   "profile": {
-    "vipLevel": "VIP (level)",
+    "vipLevel": "VIP ",
     "deposit": "Deposit",
     "withdraw": "Withdraw",
     "contact": "Please contact customer service",
@@ -48,8 +48,11 @@
   "form": {
     "usernamePlaceholder": "Username",
     "passwordPlaceholder": "Password",
+    "codePlaceholder": "Code",
     "usernameError": "Username is required",
     "passwordError": "Password is required",
+    "codedError": "Code is required",
+    "codedLengthError": "Code must be over 6 characters",
     "loginButton": "Log in",
     "registerButton": "Register",
     "backToLogin": "Back to Login",
@@ -142,5 +145,20 @@
     "note2": "2. Number of withdrawals: Maximum 50 per day",
     "note3": "3. Time: Usually arrives within 5 minutes, the fastest is 2 minutes",
     "confirm": "Confirm"
+  },
+  "gender": {
+    "screen": {
+      "header": {
+        "title": "Gender",
+        "backButton": "Back",
+        "saveButton": "Save"
+      },
+      "form": {
+        "genderOptions": {
+          "male": "Male",
+          "female": "Female"
+        }
+      }
+    }
   }
 }

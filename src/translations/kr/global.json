@@ -23,7 +23,7 @@
     "watch": "보기"
   },
   "profile": {
-    "vipLevel": "VIP (level)",
+    "vipLevel": "VIP ",
     "deposit": "입금",
     "withdraw": "출금",
     "contact": "고객 서비스 센터로 문의하십시오",
@@ -48,8 +48,11 @@
   "form": {
     "usernamePlaceholder": "사용자 이름",
     "passwordPlaceholder": "비밀번호",
+    "codePlaceholder": "추천 코드",
     "usernameError": "사용자 이름은 필수입니다",
     "passwordError": "비밀번호는 필수입니다",
+    "codedError": "추천 코드가 필요합니다",
+    "codedLengthError": "추천코드는 6자 이상이어야 합니다.",
     "loginButton": "로그인",
     "registerButton": "회원가입",
     "backToLogin": "로그인으로 돌아가기",
@@ -142,5 +145,20 @@
     "note2": "2. 출금 횟수: 하루 최대 50회",
     "note3": "3. 시간: 일반적으로 5분 이내, 가장 빠른 시간은 2분",
     "confirm": "확인"
+  },
+  "gender": {
+    "screen": {
+      "header": {
+        "title": "성별",
+        "backButton": "뒤로",
+        "saveButton": "저장"
+      },
+      "form": {
+        "genderOptions": {
+          "male": "남성",
+          "female": "여성"
+        }
+      }
+    }
   }
 }

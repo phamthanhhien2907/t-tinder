@@ -30,6 +30,7 @@ const WithDraw = () => {
       toast.success(
         `Bạn đã rút ${values?.money}! Vui lòng đợi quản trị viên kiểm duyệt`
       );
+      dispatch(getCurrent())
       reset()
     } else {
       toast.error(`${data?.message}`);
@@ -55,7 +56,7 @@ const WithDraw = () => {
             <span className=" text-xl text-white absolute top-2 left-[35%]">
               {t("withDraw.withdrawPoints")}
             </span>
-            <span className=" text-lg text-white absolute top-2 right-[20px]">
+            <span className=" text-lg text-white absolute top-2 right-[20px] cursor-pointer" onClick={() => navigate(`/withdrawalhistory/${currentData?._id}`)}>
               {t("withDraw.withdrawHistory")}
             </span>
           </div>

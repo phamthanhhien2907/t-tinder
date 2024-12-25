@@ -41,6 +41,8 @@ import WithDrawalHistoryAdmin from "./pages/WithDrawalHistoryAdmin";
 import TransformHistory from "./pages/Transform";
 import HistoryDetailsAdmin from "./pages/Admin/EvaluteHistory/_id";
 import EvaluteHistoryAdmin from "./pages/Admin/EvaluteHistory";
+import DepositHistory from "./pages/DepositHistory";
+import Belt from "./pages/Belt";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -93,6 +95,10 @@ function App() {
                   path={path.HISTORYEVALUTEADMIN}
                 />
                 <Route
+                  element={<Belt />}
+                  path={path.BELT}
+                />
+                <Route
                   element={<HistoryDetailsAdmin />}
                   path={path.HISTORYDETAILSEVALUTEADMIN}
                 />
@@ -117,10 +123,7 @@ function App() {
                 <Route element={<Home />} path={path.HOME} />
                 <Route element={<Information />} path={path.INFORMATION} />
                 <Route element={<WithDraw />} path={path.WITHDRAW} />
-                <Route
-                  element={<DepositialHistory />}
-                  path={path.HISTORYDEPOSIT}
-                />
+               
                 <Route
                   element={<WithDrawalHistory />}
                   path={path.HISTORYWITHDRAW}
@@ -129,6 +132,11 @@ function App() {
                   element={<EvaluteHistory />}
                   path={path.HISTORYEVALUTE}
                 />
+                <Route
+                  element={<DepositHistory />}
+                  path={path.HISTORYDEPOSIT}
+                />
+                 
                 <Route
                   element={<HistoryDetails />}
                   path={path.HISTORYDETAILSEVALUTE}

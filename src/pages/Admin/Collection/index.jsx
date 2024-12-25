@@ -31,17 +31,17 @@ const Collections = () => {
   ) : (
     <div className="px-10 py-5">
       <div className="flex items-center justify-between">
-        <p className="text-heading2-bold font-semibold">QUẢN LÍ PHIM</p>
+        <p className="text-heading2-bold font-semibold max-sm:text-xs">QUẢN LÍ PHIM</p>
         <Button
-          className="bg-red-500 text-white hover:bg-red-700"
+          className="bg-red-500 text-white hover:bg-red-700 max-sm:text-xs"
           onClick={() => navigate("/collection/new")}
         >
-          <Plus className="h-4 w-4 mr-2" />
+          <Plus className="h-4 w-4 mr-2 " />
           Thêm phim mới
         </Button>
       </div>
       <Separator className="bg-grey-1 my-4" />
-      <DataTable columns={columns} data={collections} searchKey="title" />
+      <DataTable columns={columns} data={collections} searchKey={["title", "category"]} />
     </div>
   );
 };

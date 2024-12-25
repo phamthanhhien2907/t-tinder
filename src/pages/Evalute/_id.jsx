@@ -38,6 +38,7 @@ const DetailEvalute = () => {
   const {
     register,
     handleSubmit,
+    reset
   } = useForm({
     defaultValues: {
       money: "",
@@ -82,7 +83,7 @@ const DetailEvalute = () => {
       setIsFetching(false); // Đặt lại cờ sau khi hoàn tất
     }
   };
- 
+  
   useEffect(() => {
     // Gọi API ngay khi component được tải
     fetchTimeLeft();
@@ -149,6 +150,9 @@ const DetailEvalute = () => {
 
     if (data?.success) {
       toast.success(data?.message);
+      reset();
+      setHoverActive(!hoverActive);
+      setSelectedItems([]);
     } else {
       toast.error(data?.message);
     }
@@ -257,7 +261,7 @@ const DetailEvalute = () => {
           </span>
         </div>
       </div>
-
+        {/* <div onClick={() => apiUpdateUserRoom(roomId, userId)}>abc</div>     */}
       <div className="shadow-xl">
         <div className="flex items-center justify-between px-4 pt-4 pb-10">
           <div className="flex gap-4 items-center">
@@ -371,7 +375,6 @@ const DetailEvalute = () => {
             key={rs?.id}
             onClick={(e) => {
               e.stopPropagation();
-
               handleSelect(e, rs?.name);
             }}
             className={`w-full h-[160px] rounded-xl ${
@@ -453,7 +456,7 @@ const DetailEvalute = () => {
             )}
 
             <div className="flex items-center gap-6 ">
-              <div className="flex flex-col gap-2 justify-center ">
+              <div className="flex flex-col gap-2 justify-center cursor-pointer">
                 <ShoppingCart
                   size={22}
                   onClick={() => {

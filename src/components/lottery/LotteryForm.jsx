@@ -10,11 +10,12 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Delete from "../custom ui/Delete";
 import { useNavigate, useParams } from "react-router-dom";
-import { apiCreateLottery, apiUpdateResult } from "@/services/evaluateService";
+import { apiCreateLottery, apiGetLotteryById, apiGetRoomById, apiUpdateResult } from "@/services/evaluateService";
+import { pathImg } from "@/lib/constant";
 
 const LotteryForm = ({ initialData }) => {
   const { roomId } = useParams();
@@ -22,7 +23,7 @@ const LotteryForm = ({ initialData }) => {
   const [isLoadding, setIsLoadding] = useState(false);
   const [invisible, setInvisible] = useState(false);
   const [selectedResults, setSelectedResults] = useState([]);
-
+  const [lottery, setLottery] = useState(null);
   const handleResultChange = (event) => {
     const newSelectedResults = [...event.target.options]
       .filter((option) => option.selected) // Filter selected options
@@ -49,29 +50,45 @@ const LotteryForm = ({ initialData }) => {
           image: "",
         },
   });
+  
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
     }
   };
+  const getBeltByRoom = async (roomId) => {
+    const data = await apiGetRoomById(roomId);
+    if(data?.success) setLottery(data.evaluates);
+  }
+  useEffect(() => {
+    getBeltByRoom(roomId);
+  }, [roomId])
   const onSubmit = async (values) => {
     try {
       setIsLoadding(true);
-
+      const formData = new FormData();
+      const selectedFile = getValues().image[0];
+      console.log(selectedFile?.name)
+      if (selectedFile?.name) {
+        formData.append("image", selectedFile, selectedFile.name);
+      } else {
+        formData.append("image", lottery?.image) 
+      }
+      formData.append("resultUpdate", [selectedResults])
       if (initialData) {
-        if (selectedResults.length > 1) {
-          const data = await apiUpdateResult(roomId, {
-            resultUpdate: [selectedResults],
-          });
-
+        console.log(!selectedFile?.name)
+        if(selectedResults.length < 2 && !selectedFile?.name){
+          toast.error("Vui lòng chọn 2 kết quả hoặc ảnh nền cược");
+          return
+        }
+        if (selectedResults.length > 1 || selectedFile) {
+          const data = await apiUpdateResult(roomId, formData);
           if (data?.success) {
-            location.reload();
-            window.location.href = "/lottery";
+            toast.success("Chỉnh sửa thành công")
             navigate("/lottery");
           }
-        } else {
-          toast.error("Vui lòng chọn 2 kết quả");
         }
+       
       } else {
         const formData = new FormData();
         const selectedFile = getValues().image[0];
@@ -91,7 +108,7 @@ const LotteryForm = ({ initialData }) => {
       }
     } catch (error) {
       console.log("[collections_POST]", error);
-      toast.error("Something went wrong! Please try again.");
+      toast.error("Vui lòng chọn dữ liệu để chỉnh sửa");
     }
   };
   return (
@@ -109,7 +126,7 @@ const LotteryForm = ({ initialData }) => {
 
       <Separator className="bg-grey-1 mt-4 mb-7" />
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-        {!initialData && (
+        {/* {!initialData && (
           <div className="flex flex-col gap-4">
             <label htmlFor="">Thời gian (Giây) :</label>
             <Input
@@ -119,17 +136,35 @@ const LotteryForm = ({ initialData }) => {
               aria-invalid={errors.period ? "true" : "false"}
             />
           </div>
+        )} */}
+        {initialData && (
+          <div className="flex flex-col items-start gap-4">
+            <label>Chỉnh sửa nền cược</label>
+            <div className="flex items-center w-full gap-4">
+              <div className="w-[80%]">
+                <Input
+                    type="file"
+                    {...register("image", { onChange })}
+                    placeholder="Image"
+                    // onKeyDown={handleKeyPress}
+                    accept="image/*"
+                    
+                  />
+              </div>
+                {lottery?.image?.length > 0 ? <img src={`${pathImg}/images/${lottery?.image}`} className='w-24 h-24' alt="" /> : <p>Chưa có nền cược</p>}
+            </div>
+          </div>
         )}
         {initialData && (
-          <div className="flex items-start flex-col gap-4">
-            <label for="result">
+          <div className="flex items-start flex-col gap-4 ">
+            <label htmlFor="result">
               Kết quả dự đoán (Nếu chọn thì tự động random ra kết quả) :
             </label>
             <select
               multiple
               value={selectedResults} // Set the selected values from state
               onChange={handleResultChange}
-              className="border px-4 w-full border-black"
+              className="border px-4 w-full border-black h-32 overflow-y-hidden"
             >
               {!invisible && (
                 <option className="break-all" value="">
@@ -157,6 +192,7 @@ const LotteryForm = ({ initialData }) => {
             />
           </div>
         )}
+        
         {!initialData && (
           <div className="flex flex-col gap-4">
             <label htmlFor="">Phòng: </label>

@@ -23,7 +23,7 @@
     "watch": "Xem"
   },
   "profile": {
-    "vipLevel": "VIP (level)",
+    "vipLevel": "VIP ",
     "deposit": "Nạp tiền",
     "withdraw": "Rút tiền",
     "contact": "Vui lòng liên hệ CSKH",
@@ -48,8 +48,11 @@
   "form": {
     "usernamePlaceholder": "Tên đăng nhập",
     "passwordPlaceholder": "Mật khẩu",
+    "codePlaceholder": "Mã giới thiệu",
     "usernameError": "Tên tài khoản là bắt buộc",
     "passwordError": "Mật khẩu là bắt buộc",
+    "codedError": "Mã giới thiệu là bắt buộc",
+    "codedLengthError": "Mã giới thiệu phải trên 6 kí tự",
     "loginButton": "Đăng nhập",
     "registerButton": "Đăng ký",
     "backToLogin": "Quay về đăng nhập",
@@ -142,5 +145,20 @@
     "note2": "2. Số lần rút điểm: tối đa 50 lần/ngày",
     "note3": "3. Thời gian: Thông thường, thời gian đến là khoảng 5 phút và thời gian nhanh nhất là 2 phút",
     "confirm": "Xác nhận"
+  },
+  "gender": {
+    "screen": {
+      "header": {
+        "title": "Giới tính",
+        "backButton": "Quay lại",
+        "saveButton": "Lưu"
+      },
+      "form": {
+        "genderOptions": {
+          "male": "Nam",
+          "female": "Nữ"
+        }
+      }
+    }
   }
 }

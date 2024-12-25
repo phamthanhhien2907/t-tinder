@@ -25,7 +25,8 @@ const path = {
   HISTORYDETAILSEVALUTE: "historydetails/:roomId/:userId",
   HISTORYDETAILSEVALUTEADMIN: "historydetails/:roomId",
 
-  HISTORYDEPOSIT: "depositalhistory/:id",
+  HISTORYDEPOSIT: "depositalhistory",
+  BELT: "belt",
   SETTING: "setting",
   CREATE_COLLECTION: "collection/new",
   CREATE_LOTTERY: "lottery/new",

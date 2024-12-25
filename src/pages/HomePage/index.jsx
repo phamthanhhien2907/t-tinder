@@ -9,7 +9,7 @@ import danhgia6 from "@/assets/danhgia6.png";
 import { apiGetCollection } from "@/services/collectionService";
 import { useEffect, useState } from "react";
 import CustomSlide from "../SlickSlider/cinema";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Marquee from "react-fast-marquee";
 import CampaignIcon from '@mui/icons-material/Campaign';
@@ -18,6 +18,7 @@ import { useTranslation } from "react-i18next";
 const HomePage = ({ currentData }) => {
   const dispatch = useDispatch();
   const [collection, setCollection] = useState(null);
+  const navigate = useNavigate()
   const [t] = useTranslation("global");
   const getCollection = async () => {
     const data = await apiGetCollection();
@@ -62,7 +63,7 @@ const HomePage = ({ currentData }) => {
         </div>
       </div>
       <div className="flex items-center justify-between px-20 py-2 max-sm:px-2">
-        <div className="flex flex-col items-center  gap-2 cursor-pointer">
+        <div className="flex flex-col items-center  gap-2 cursor-pointer" onClick={() => navigate(`/lottery/1/${currentData?._id}/3`)}>
           <img
             className="w-[60px] h-[60px] max-sm:w-[40px] max-sm:h-[50px] rounded-xl"
             src={danhgia1}
@@ -70,7 +71,7 @@ const HomePage = ({ currentData }) => {
           />
           <span className="text-base max-sm:text-xs">{t("home.vip1")}</span>
         </div>
-        <div className="flex flex-col items-center  gap-2 cursor-pointer">
+        <div className="flex flex-col items-center  gap-2 cursor-pointer" onClick={() => navigate(`/lottery/2/${currentData?._id}/3`)}>
           <img
             className="w-[60px] h-[60px] max-sm:w-[40px] max-sm:h-[50px] rounded-xl"
             src={danhgia2}
@@ -78,7 +79,7 @@ const HomePage = ({ currentData }) => {
           />
           <span className="text-base max-sm:text-xs">{t("home.vip2")}</span>
         </div>
-        <div className="flex flex-col items-center  gap-2 cursor-pointer">
+        <div className="flex flex-col items-center  gap-2 cursor-pointer" onClick={() => navigate(`/lottery/3/${currentData?._id}/3`)}>
           <img
             className="w-[60px] h-[60px] max-sm:w-[40px] max-sm:h-[50px] rounded-xl"
             src={danhgia3}

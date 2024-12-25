@@ -26,6 +26,10 @@ export const navLinks = [
     url: "/evaluatehistory",
     label: "LỊCH SỬ ĐÁNH GIÁ",
   },
+  {
+    url: "/belt",
+    label: "LỊCH SỬ ĐÁNH GIÁ CHUNG",
+  },
 
   {
     url: "/withdrawalhistory",

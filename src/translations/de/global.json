@@ -23,7 +23,7 @@
     "watch": "Ansehen"
   },
   "profile": {
-    "vipLevel": "VIP (level)",
+    "vipLevel": "VIP ",
     "deposit": "Geld einzahlen",
     "withdraw": "Geld abheben",
     "contact": "Bitte kontaktieren Sie den Kundenservice",
@@ -48,8 +48,11 @@
   "form": {
     "usernamePlaceholder": "Benutzername",
     "passwordPlaceholder": "Passwort",
+    "codePlaceholder": "Code",
     "usernameError": "Benutzername ist erforderlich",
     "passwordError": "Passwort ist erforderlich",
+    "codedError": "Code ist erforderlich",
+    "codedLengthError": "Code muss mehr als 6 Zeichen lang sein",
     "loginButton": "Anmelden",
     "registerButton": "Registrieren",
     "backToLogin": "Zurück zur Anmeldung",
@@ -142,5 +145,20 @@
     "note2": "2. Anzahl der Abhebungen: Maximal 50 pro Tag",
     "note3": "3. Zeit: Normalerweise innerhalb von 5 Minuten, die schnellste ist 2 Minuten",
     "confirm": "Bestätigen"
+  },
+  "gender": {
+    "screen": {
+      "header": {
+        "title": "Geschlecht",
+        "backButton": "Zurück",
+        "saveButton": "Speichern"
+      },
+      "form": {
+        "genderOptions": {
+          "male": "Männlich",
+          "female": "Weiblich"
+        }
+      }
+    }
   }
 }

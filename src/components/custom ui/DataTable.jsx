@@ -14,19 +14,38 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Input } from "../ui/input";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 export function DataTable({ columns, data, searchKey }) {
-  console.log(data);
-  const [columnFilters, setColumnFilters] = useState([]);
+  const [filterValue, setFilterValue] = useState("");
+
+  // Memoize filtered data
+  const filteredData = useMemo(() => {
+    return data?.filter((row) => {
+      if (Array.isArray(searchKey)) {
+        return searchKey?.some((key) => {
+          const value = row[key];
+          return (
+            value &&
+            value.toString().toLowerCase().includes(filterValue.toLowerCase())
+          );
+        });
+      } else {
+        const value = row[searchKey];
+        return (
+          value &&
+          value.toString().toLowerCase().includes(filterValue.toLowerCase())
+        );
+      }
+    });
+  }, [data, searchKey, filterValue]);
+
   const table = useReactTable({
-    data,
+    data: filteredData,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    onColumnFiltersChange: setColumnFilters,
-    getFilteredRowModel: getFilteredRowModel(),
     state: {
-      columnFilters,
+      columnFilters: [],
     },
   });
 
@@ -35,11 +54,9 @@ export function DataTable({ columns, data, searchKey }) {
       <div className="flex items-center py-4">
         <Input
           placeholder="Tìm kiếm..."
-          value={table.getColumn(searchKey)?.getFilterValue() ?? ""}
-          onChange={(event) =>
-            table.getColumn(searchKey)?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
+          value={filterValue}
+          onChange={(event) => setFilterValue(event.target.value)}
+          className="max-w-sm max-sm:w-max"
         />
       </div>
       <div className="rounded-md border">
@@ -47,18 +64,16 @@ export function DataTable({ columns, data, searchKey }) {
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                ))}
               </TableRow>
             ))}
           </TableHeader>

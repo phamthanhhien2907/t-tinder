@@ -21,7 +21,7 @@ const UserDetails = () => {
   };
   useEffect(() => {
     getUserDetailsById(id);
-  }, []);
+  }, [id]);
   return isLoading ? <Loader /> : <CustomerForm initialData={userDetails} />;
 };
 

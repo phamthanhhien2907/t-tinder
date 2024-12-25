@@ -47,6 +47,30 @@ export const apiGetCurrent = () =>
       reject(error);
     }
   });
+export const apiGetMyDeposit = () =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axiosConfig({
+        method: "GET",
+        url: "/users/myDeposit",
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+export const apiGetAllDeposit = () =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axiosConfig({
+        method: "GET",
+        url: "/users/deposit",
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
 export const apiUpdatedUser = (id, data) =>
   new Promise(async (resolve, reject) => {
     try {

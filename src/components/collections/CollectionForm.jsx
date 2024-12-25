@@ -10,15 +10,16 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Delete from "../custom ui/Delete";
 import { useNavigate, useParams } from "react-router-dom";
-import { apiCreateCollection, apiUpdateCollectionById } from "@/services/collectionService";
+import { apiCreateCollection, apiGetCollectionById, apiUpdateCollectionById } from "@/services/collectionService";
 
 const CollectionForm = ({ initialData }) => {
   const navigate = useNavigate();
   const [isLoadding, setIsLoadding] = useState(false);
+  const [collection, setCollection] = useState(null)
   const [invisible, setInvisible] = useState(false);
   const { id } = useParams();
   const { register, handleSubmit, watch, setValue, getValues, onChange } =
@@ -32,6 +33,15 @@ const CollectionForm = ({ initialData }) => {
             category: "",
           },
     });
+    const getCollectionDetails = async(id) => {
+      const data = await apiGetCollectionById(id)
+      if(data?.success) setCollection(data?.collections)
+    }
+    console.log(collection)
+
+    useEffect(() => {
+      getCollectionDetails(id)
+    }, [id])
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -64,9 +74,12 @@ const CollectionForm = ({ initialData }) => {
         const formData = new FormData();
         const selectedFile = getValues().image[0];
         const selectedVideo = getValues().video[0];
-        if (selectedFile && selectedVideo) {
+        if (selectedVideo?.name && selectedVideo?.name ) {
           formData.append("images", selectedFile, selectedFile.name);
           formData.append("videos", selectedVideo, selectedVideo.name);
+        }else{
+          formData.append("images", collection?.image);
+          formData.append("videos", collection?.video);
         }
 
         formData.append("title", values.title);

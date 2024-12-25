@@ -84,18 +84,18 @@ const Profile = () => {
             </Link>
             <div className="flex items-center gap-1">
               <img src={level_vip} className="w-12 h-10" alt="vip" />
-              <h3 className="text-lg text-white">{t('profile.vipLevel')}</h3>
+              <h3 className="text-lg text-white">{t('profile.vipLevel')} ({`level ${currentData?.vip}`})</h3>
             </div>
           </div>
         </div>
         <div className="absolute z-30 bottom-[-40px] w-full">
           <div className="w-[90%] mx-auto max-sm:h-[60px] h-[80px] bg-white rounded-2xl py-2  ">
             <div className="flex items-center justify-evenly">
-              <div className="flex items-center gap-2 cursor-pointer">
+              <div className="flex items-center gap-2 cursor-pointer " onClick={handleAlert}>
                 <AccountBalanceWalletIcon
                   sx={{ fontSize: 30, color: "#c24491" }}
                 />
-                <span className="text-xl text-[#c24491] max-sm:text-base" onClick={handleAlert}>
+                <span className="text-xl text-[#c24491] max-sm:text-base" >
                   {t('profile.deposit')}
                 </span>
               </div>
@@ -128,16 +128,16 @@ const Profile = () => {
           </span>
         </div>
       )}
-      <div className="w-[90%] mx-auto h-[260px] mt-20 bg-white rounded-2xl py-2  ">
+      <div className="w-[90%] mx-auto h-[260px] max-sm:h-[200px] mt-20 bg-white rounded-2xl py-2  ">
         <div className=" mx-auto w-[95%] py-2 border-b-2 ">
           <h3 className="text-xl text-blue-700 max-sm:text-base">{t('profile.wallet')}</h3>
         </div>
         <div className="flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-2">
-            <span className="text-3xl font-bold text-blue-700 max-sm:text-2xl">0</span>
+            <span className="text-3xl font-bold text-blue-700 max-sm:text-xl">0</span>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-xl text-gray-600 max-sm:text-lg">{t('profile.balance')}</span>
+            <span className="text-xl text-gray-600 max-sm:text-base">{t('profile.balance')}</span>
             <div className="w-[50px] h-[50px] max-sm:w-[40px] max-sm:h-[40px] flex items-center justify-center bg-[#c24491] rounded-full">
               <RefreshIcon
                 sx={{
@@ -150,10 +150,10 @@ const Profile = () => {
         </div>
         <div className="flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-2">
-            <span className="text-3xl font-bold text-blue-700 max-sm:text-2xl">100</span>
+            <span className="text-3xl font-bold text-blue-700 max-sm:text-xl">100</span>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-xl text-gray-600 max-sm:text-lg">{t('profile.creditScore')}</span>
+            <span className="text-xl text-gray-600 max-sm:text-base">{t('profile.creditScore')}</span>
             <div className="w-[50px] h-[50px] max-sm:w-[40px] max-sm:h-[40px] flex items-center justify-center bg-[#c24491] rounded-full">
               <RefreshIcon
                 sx={{
@@ -176,7 +176,7 @@ const Profile = () => {
                 }}
               />
             </div>
-            <span className="text-base text-[#c24491] max-sm:text-sm">
+            <span className="text-base text-[#c24491] max-sm:text-xs">
             {t('profile.accountDetails')}
             </span>
           </div>
@@ -192,7 +192,7 @@ const Profile = () => {
                 }}
               />
             </div>
-            <span className="text-base text-[#c24491] max-sm:text-sm">{t('profile.personalInfo')}</span>
+            <span className="text-base text-[#c24491] max-sm:text-xs">{t('profile.personalInfo')}</span>
           </div>
           <div
             className="flex items-center px-4 py-4 gap-4 cursor-pointer"
@@ -206,12 +206,12 @@ const Profile = () => {
                 }}
               />
             </div>
-            <span className="text-base text-[#c24491] max-sm:text-sm">{t('profile.withdrawHistory')}</span>
+            <span className="text-base text-[#c24491] max-sm:text-xs">{t('profile.withdrawHistory')}</span>
           </div>
           <div
             className="flex items-center px-4 py-4 gap-4 cursor-pointer"
 
-            // onClick={() => navigate(isLoggedIn && token ? "/information" : "")}
+            onClick={() => navigate("/depositalhistory")}
           >
             <div className="w-[50px] h-[50px] max-sm:w-[40px] max-sm:h-[40px] flex items-center justify-center border rounded-full ">
               <AccountBalanceWalletIcon
@@ -221,7 +221,7 @@ const Profile = () => {
                 }}
               />
             </div>
-            <span className="text-base text-[#c24491] max-sm:text-sm">{t('profile.depositHistory')}</span>
+            <span className="text-base text-[#c24491] max-sm:text-xs">{t('profile.depositHistory')}</span>
           </div>
           <div
             className="flex items-center px-4 py-4 gap-4 cursor-pointer"
@@ -235,7 +235,7 @@ const Profile = () => {
                 }}
               />
             </div>
-            <span className="text-base text-[#c24491] max-sm:text-sm">{t('profile.reviewHistory')}</span>
+            <span className="text-base text-[#c24491] max-sm:text-xs">{t('profile.reviewHistory')}</span>
           </div>
           <div
             className="flex items-center px-4 py-4 gap-4 cursor-pointer"
@@ -253,7 +253,7 @@ const Profile = () => {
                 }}
               />
             </div>
-            <span className="text-base text-[#c24491] max-sm:text-sm">
+            <span className="text-base text-[#c24491] max-sm:text-xs">
             {t('profile.bankLink')}
             </span>
           </div>

@@ -35,7 +35,7 @@ const WithDrawalHistory = () => {
             </span>
           </div>
         </div>
-        <div className="h-screen overflow-y-scroll tabs-list pt-12">
+        <div className="h-screen overflow-y-scroll tabs-list">
           {withDraw.length > 0 ? (
             <div className="bg-gray-200 py-2">
               <div className="w-full px-2 flex flex-col gap-2">

@@ -45,6 +45,7 @@ const CustomerForm = ({ initialData }) => {
 
       const res = await apiUpdatedDesposit(id, {
         desposit: values?.desposit,
+        despositMinutes : values?.despositMinutes,
         vip: values?.vip,
       });
 
@@ -75,6 +76,7 @@ const CustomerForm = ({ initialData }) => {
       )}
 
       <Separator className="bg-grey-1 mt-4 mb-7" />
+      
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         <label>Nạp tiền:</label>
         <Input
@@ -87,6 +89,20 @@ const CustomerForm = ({ initialData }) => {
             MozAppearance: "textfield",
           }}
         />
+
+        <div className="flex flex-col gap-4">
+        <label>Trừ tiền:</label>
+        <Input
+          {...register("despositMinutes")}
+          placeholder="Số tiền cần trừ"
+          onKeyDown={handleKeyPress}
+          type="number"
+          style={{
+            WebkitAppearance: "none",
+            MozAppearance: "textfield",
+          }}
+        />
+        </div>
         <div className="flex items-center gap-4">
           <label htmlFor="vip">Chọn Vip cho khách hàng (không bắt buộc):</label>
           <select
@@ -120,7 +136,7 @@ const CustomerForm = ({ initialData }) => {
           </Button>
           <Button
             type="button"
-            onClick={() => navigate("/collection")}
+            onClick={() => navigate("/customers")}
             className="bg-blue-500 text-white hover:bg-blue-700"
           >
             Quay về
