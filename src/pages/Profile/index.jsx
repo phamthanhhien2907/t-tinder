@@ -138,7 +138,7 @@ const Profile = () => {
           </div>
           <div className="flex items-center gap-4">
             <span className="text-xl text-gray-600 max-sm:text-base">{t('profile.balance')}</span>
-            <div className="w-[50px] h-[50px] max-sm:w-[40px] max-sm:h-[40px] flex items-center justify-center bg-[#c24491] rounded-full">
+            <div className="w-[50px] h-[50px] max-sm:w-[30px] max-sm:h-[30px] flex items-center justify-center bg-[#c24491] rounded-full">
               <RefreshIcon
                 sx={{
                   fontSize: isMobile ? 20 : 30,
@@ -154,7 +154,7 @@ const Profile = () => {
           </div>
           <div className="flex items-center gap-4">
             <span className="text-xl text-gray-600 max-sm:text-base">{t('profile.creditScore')}</span>
-            <div className="w-[50px] h-[50px] max-sm:w-[40px] max-sm:h-[40px] flex items-center justify-center bg-[#c24491] rounded-full">
+            <div className="w-[50px] h-[50px] max-sm:w-[30px] max-sm:h-[30px] flex items-center justify-center bg-[#c24491] rounded-full">
               <RefreshIcon
                 sx={{
                   fontSize: isMobile ? 20 : 30,
@@ -167,8 +167,8 @@ const Profile = () => {
       </div>
       <div className="w-[90%] mx-auto h-fit mt-4 bg-white rounded-2xl py-2  ">
         <div className="w-full grid grid-cols-2">
-          <div className="flex items-center px-4 py-4 gap-4">
-            <div className="w-[50px] h-[50px] max-sm:w-[40px] max-sm:h-[40px] flex items-center justify-center border rounded-full">
+          <div className="flex items-center px-4 py-4 gap-4 cursor-pointer max-sm:gap-2 max-sm:px-1">
+            <div className="w-[50px] h-[50px] max-sm:w-[30px] max-sm:h-[30px] flex items-center justify-center border rounded-full">
               <AssignmentIcon
                 sx={{
                   fontSize: isMobile ? 20 : 30,
@@ -181,10 +181,10 @@ const Profile = () => {
             </span>
           </div>
           <div
-            className="flex items-center px-4 py-4 gap-4 cursor-pointer"
+            className="flex items-center px-4 py-4 gap-4 cursor-pointer max-sm:gap-2 max-sm:px-1"
             onClick={() => navigate(isLoggedIn && token ? "/information" : "")}
           >
-            <div className="w-[50px] h-[50px] max-sm:w-[40px] max-sm:h-[40px] flex items-center justify-center border rounded-full ">
+            <div className="w-[50px] h-[50px] max-sm:w-[30px] max-sm:h-[30px] flex items-center justify-center border rounded-full ">
               <PersonIcon
                 sx={{
                   fontSize: isMobile ? 20 : 30,
@@ -195,10 +195,10 @@ const Profile = () => {
             <span className="text-base text-[#c24491] max-sm:text-xs">{t('profile.personalInfo')}</span>
           </div>
           <div
-            className="flex items-center px-4 py-4 gap-4 cursor-pointer"
+            className="flex items-center px-4 py-4 gap-4 cursor-pointer max-sm:gap-2 max-sm:px-1"
             onClick={() => navigate(`/withdrawalhistory/${currentData?._id}`)}
           >
-            <div className="w-[50px] h-[50px] max-sm:w-[40px] max-sm:h-[40px] flex items-center justify-center border rounded-full">
+            <div className="w-[50px] h-[50px] max-sm:w-[30px] max-sm:h-[30px] flex items-center justify-center border rounded-full">
               <WalletIcon
                 sx={{
                   fontSize: isMobile ? 20 : 30,
@@ -209,11 +209,10 @@ const Profile = () => {
             <span className="text-base text-[#c24491] max-sm:text-xs">{t('profile.withdrawHistory')}</span>
           </div>
           <div
-            className="flex items-center px-4 py-4 gap-4 cursor-pointer"
-
+            className="flex items-center px-4 py-4 gap-4 cursor-pointer max-sm:gap-2 max-sm:px-1"
             onClick={() => navigate("/depositalhistory")}
           >
-            <div className="w-[50px] h-[50px] max-sm:w-[40px] max-sm:h-[40px] flex items-center justify-center border rounded-full ">
+            <div className="w-[50px] h-[50px] max-sm:w-[30px] max-sm:h-[30px] flex items-center justify-center border rounded-full ">
               <AccountBalanceWalletIcon
                 sx={{
                   fontSize: isMobile ? 20 : 30,
@@ -224,10 +223,10 @@ const Profile = () => {
             <span className="text-base text-[#c24491] max-sm:text-xs">{t('profile.depositHistory')}</span>
           </div>
           <div
-            className="flex items-center px-4 py-4 gap-4 cursor-pointer"
+            className="flex items-center px-4 py-4 gap-4 cursor-pointer max-sm:gap-2 max-sm:px-1"
             onClick={() => navigate(`/evaluatehistory/${currentData?._id}`)}
           >
-            <div className="w-[50px] h-[50px] max-sm:w-[40px] max-sm:h-[40px] flex items-center justify-center border rounded-full">
+            <div className="w-[50px] h-[50px] max-sm:w-[30px] max-sm:h-[30px] flex items-center justify-center border rounded-full">
               <SportsEsportsIcon
                 sx={{
                   fontSize: isMobile ? 20 : 30,
@@ -238,14 +237,14 @@ const Profile = () => {
             <span className="text-base text-[#c24491] max-sm:text-xs">{t('profile.reviewHistory')}</span>
           </div>
           <div
-            className="flex items-center px-4 py-4 gap-4 cursor-pointer"
+            className="flex items-center px-4 py-4 gap-4 cursor-pointer max-sm:gap-2 max-sm:px-1"
             onClick={() =>
               navigate(
                 isLoggedIn && token ? `/setBank/${currentData?._id}` : ""
               )
             }
           >
-            <div className="w-[50px] h-[50px] max-sm:w-[40px] max-sm:h-[40px] flex items-center justify-center border rounded-full ">
+            <div className="w-[50px] h-[50px] max-sm:w-[30px] max-sm:h-[30px] flex items-center justify-center border rounded-full ">
               <AccountBalanceIcon
                 sx={{
                   fontSize: isMobile ? 20 : 30,
