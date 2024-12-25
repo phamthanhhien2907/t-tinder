@@ -78,7 +78,7 @@ export default function FixedBottomNavigation() {
             if (newValue === 2) return;
             setValue(newValue);
           }}
-          className={isMobile ? "py-0 px-2" : "py-8"}
+          className={isMobile ? "py-0 px-4" : "py-8"}
         >
           <BottomNavigationAction
            label={
@@ -125,7 +125,7 @@ export default function FixedBottomNavigation() {
 
           <BottomNavigationAction
           label={
-            <img src={beauty} alt="beauty" className={isMobile ? "w-[60px] h-[60px] mb-10" : "w-[85px] h-[85px] mb-12"}/>
+            <img src={beauty} alt="beauty" className={isMobile ? "w-[60px] h-[55px] mb-10" : "w-[85px] h-[85px] mb-12"}/>
           }
             sx={{
               fontWeight: 600,

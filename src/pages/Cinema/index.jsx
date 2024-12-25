@@ -18,13 +18,13 @@ const Cinema = ({ currentData }) => {
   }, []);
 
   return (
-    <div className="w-full h-screen">
-      <Tabs defaultValue="hot" className="w-full h-full">
-        <div className="w-full bg-profileColor pt-4 flex flex-col">
+    <div className="w-full h-screen overflow-y-hidden">
+      <Tabs defaultValue="hot" className="w-full h-full overflow-y-hidden">
+        <div className="w-full bg-profileColor pt-4 flex flex-col overflow-y-hidden">
           <h3 className="text-center text-xl text-white pb-4 max-sm:pb-0 max-sm:text-base">
           {t("cinema.cinemaTitle")}
           </h3>
-          <TabsList className="w-full flex items-center max-sm:items-start justify-start gap-2 max-sm:gap-0">
+          <TabsList className="w-full flex items-center max-sm:items-start gap-2 max-sm:gap-0 overflow-y-hidden">
             <TabsTrigger className="relative text-base text-white data-[state=active]:text-white transition-all duration-300 ease-linear
       after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[4px] after:bg-white after:transition-all after:duration-300 after:ease-linear data-[state=active]:after:w-1/2 data-[state=active]:after:left-[25%] max-sm:text-[11px]" value="hot">
               {t("cinema.hotMovies")}
