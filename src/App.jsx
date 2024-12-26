@@ -43,6 +43,12 @@ import HistoryDetailsAdmin from "./pages/Admin/EvaluteHistory/_id";
 import EvaluteHistoryAdmin from "./pages/Admin/EvaluteHistory";
 import DepositHistory from "./pages/DepositHistory";
 import Belt from "./pages/Belt";
+import CategoryBelt from "./pages/Admin/CategoryBelt";
+import CategoryBeltForm from "./components/categoryBelt/CategoryBeltForm";
+import CategoryBeltDetails from "./components/categoryBelt/_id";
+import CategoryCollection from "./pages/Admin/CategoryCollection";
+import CategoryCollectionForm from "./components/categoryCollection/CategoryCollectionForm";
+import CategoryCollectionDetails from "./components/categoryCollection/_id";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -84,6 +90,24 @@ function App() {
                 <Route
                   element={<CollectionDetails />}
                   path={path.COLLECTION_DETAIL}
+                />
+                 <Route element={<CategoryBelt />} path={path.CATEGORY_BELT} />
+                <Route
+                  element={<CategoryBeltForm />}
+                  path={path.CREATE_CATEGORY_BELT}
+                />
+                <Route
+                  element={<CategoryBeltDetails />}
+                  path={path.DETAILS_CATEGORY_BELT}
+                />
+                <Route element={<CategoryCollection />} path={path.CATEGORY_COLLECTION} />
+                <Route
+                  element={<CategoryCollectionForm />}
+                  path={path.CREATE_CATEGORY_COLLECTION}
+                />
+                <Route
+                  element={<CategoryCollectionDetails />}
+                  path={path.DETAILS_CATEGORY_COLLECTION}
                 />
                 <Route element={<Customers />} path={path.CUSTOMER} />
                 <Route element={<CustomerForm />} path={path.CREATE_CUSTOMER} />

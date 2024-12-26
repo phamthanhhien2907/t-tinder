@@ -4,8 +4,10 @@ import danhgia3 from "@/assets/danhgia3.jpg";
 import danhgia4 from "@/assets/danhgia4.jpeg";
 import danhgia5 from "@/assets/danhgia5.jpg";
 import danhgia6 from "@/assets/danhgia6.png";
+import { pathImg } from "@/lib/constant";
+import { apiGetAllLottery } from "@/services/evaluateService";
 import { ChevronLeft } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const EvaluteHistory = () => {
@@ -13,8 +15,16 @@ const EvaluteHistory = () => {
   const { t } = useTranslation("global");
   const [key, setKey] = useState(1);
   const navigate = useNavigate();
-
+  const [lottery, setLottery] = useState([])
   const { id } = useParams();
+  const apiGetLottery = async () => {
+  const data = await apiGetAllLottery();
+      if (data?.success) setLottery(data?.lotteries);
+  };
+  useEffect(() => {
+    apiGetLottery()
+  }, [])
+  console.log(lottery)
   return (
     <div className="w-full h-screen  ">
       <div className="sticky w-full top-0">
@@ -33,22 +43,24 @@ const EvaluteHistory = () => {
       </div>
       <div className="w-full flex bg-gray-100">
         <div className="w-full grid grid-cols-2 gap-2 px-4 pb-20 pt-4 ">
+          {lottery?.map((lot) => (
           <Link
-            to={`/historydetails/${key}/${id}`}
-            onClick={() => {
-              setKey(1);
-            }}
+            to={`/historydetails/${lot?.room}/${id}`}
+            key={lot?._id}
           >
-            <div className="w-[100%] bg-white cursor-pointer  rounded-2xl h-[140px] flex flex-col items-center ">
-              <img
-                className="w-[90px] h-[70%] object-cover rounded-2xl px-4 py-2  "
-                src={danhgia1}
-                alt="evalute"
-              />
-              <span className="">{t("evalute.vip_upgrade_1")} </span>
-            </div>
+               <div className="w-[100%] bg-white cursor-pointer  rounded-2xl h-[140px] flex flex-col items-center " >
+               <img
+                 className="w-[90px] h-[70%] object-cover rounded-2xl px-4 py-2  "
+                 src={`${pathImg}/images/${lot?.image}`}
+                 alt="evalute"
+               />
+               <span className="">{lot?.room} </span>
+             </div>
+            
+           
           </Link>
-          <Link
+          ))}
+          {/* <Link
             to={`/historydetails/${key + 1}/${id}`}
             onClick={() => {
               setKey(2);
@@ -122,7 +134,7 @@ const EvaluteHistory = () => {
               />
               <span className="">{t("evalute.vip_upgrade_6")} </span>
             </div>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>

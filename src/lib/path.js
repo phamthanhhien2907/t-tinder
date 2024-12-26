@@ -7,6 +7,12 @@ const path = {
   LOGIN: "sign-in",
   PROFILE: "profile",
   COLLECTION: "",
+  CATEGORY_BELT: "/categoryBelt",
+  CREATE_CATEGORY_BELT: "/categoryBelt/new",
+  DETAILS_CATEGORY_BELT: "/categoryBelt/:id",
+  CATEGORY_COLLECTION: "/categoryCollection",
+  CREATE_CATEGORY_COLLECTION: "/categoryCollection/new",
+  DETAILS_CATEGORY_COLLECTION: "/categoryCollection/:id",
   CUSTOMER: "customers",
   LOTTERY: "lottery",
   INFORMATION: "information",
@@ -37,7 +43,7 @@ const path = {
   LOTTERY_DETAIL: "room/:roomId",
 
   CINEMA_DETAIL: "video/:title/:id/:userId",
-  LOTERY: "lottery/:roomId/:userId/:time",
+  LOTERY: "lottery/:roomId/:userId",
   EDIT_USER: "edit/:id",
 };
 export default path;

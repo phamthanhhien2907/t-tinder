@@ -21,7 +21,14 @@ export const navLinks = [
     url: "/lottery",
     label: "QUẢN LÍ CƯỢC",
   },
-
+  {
+    url: "/categoryBelt",
+    label: "QUẢN LÍ DANH MỤC PHÒNG CƯỢC",
+  },
+  {
+    url: "/categoryCollection",
+    label: "QUẢN LÍ DANH MỤC PHIM",
+  },
   {
     url: "/evaluatehistory",
     label: "LỊCH SỬ ĐÁNH GIÁ",

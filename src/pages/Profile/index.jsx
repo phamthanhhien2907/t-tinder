@@ -134,7 +134,7 @@ const Profile = () => {
         </div>
         <div className="flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-2">
-            <span className="text-3xl font-bold text-blue-700 max-sm:text-xl">0</span>
+            <span className="text-3xl font-bold text-blue-700 max-sm:text-xl">{currentData?.withDraw?.toLocaleString("vi-VN") + "₫"}</span>
           </div>
           <div className="flex items-center gap-4">
             <span className="text-xl text-gray-600 max-sm:text-base">{t('profile.balance')}</span>
@@ -150,7 +150,7 @@ const Profile = () => {
         </div>
         <div className="flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-2">
-            <span className="text-3xl font-bold text-blue-700 max-sm:text-xl">100</span>
+            <span className="text-3xl font-bold text-blue-700 max-sm:text-xl">0</span>
           </div>
           <div className="flex items-center gap-4">
             <span className="text-xl text-gray-600 max-sm:text-base">{t('profile.creditScore')}</span>

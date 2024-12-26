@@ -41,6 +41,13 @@ export const columns = [
     ),
   },
   {
+    accessorKey: "role",
+    header: "Role",
+    cell: ({ row }) => (
+      <div className="max-sm:w-[120px]">{row.original.role === "user" ? "Người dùng" : "Quản trị"}</div>
+    ),
+  },
+  {
     accessorKey: "code",
     header: "Mã giới thiệu",
     cell: ({ row }) => (
@@ -56,16 +63,15 @@ export const columns = [
     header: "Sửa",
     id: "actions",
     cell: ({ row }) =>  (
-      <Link to={`/customer/${row.original._id}`} className="hover:text-red-1">
+      <div className="flex items-center gap-2">
+        <Link to={`/customer/${row.original._id}`} className="hover:text-red-1">
         <Button className="bg-blue-500 text-white hover:bg-blue-700">
           <Edit className="h-4 w-4"/>
         </Button>
-      </Link>
+        </Link>
+        <Delete item="customers" id={row.original._id} />
+      </div>
     )
   },
-  {
-    header: "Xóa",
-    id: "actions",
-    cell: ({ row }) => <Delete item="customers" id={row.original._id} />,
-  },
+  
 ];

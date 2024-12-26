@@ -16,8 +16,10 @@ import Delete from "../custom ui/Delete";
 import { useNavigate, useParams } from "react-router-dom";
 import { apiCreateLottery, apiGetLotteryById, apiGetRoomById, apiUpdateResult } from "@/services/evaluateService";
 import { pathImg } from "@/lib/constant";
+let array = ["A", "B", "C", "D"];
 
 const LotteryForm = ({ initialData }) => {
+  console.log(initialData)
   const { roomId } = useParams();
   const navigate = useNavigate();
   const [isLoadding, setIsLoadding] = useState(false);
@@ -60,6 +62,16 @@ const LotteryForm = ({ initialData }) => {
     const data = await apiGetRoomById(roomId);
     if(data?.success) setLottery(data.evaluates);
   }
+  function getRandomTwo(arr) {
+    const shuffled = arr.slice();
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+  
+    const result = shuffled.slice(0, 2);
+    return result;
+  }
   useEffect(() => {
     getBeltByRoom(roomId);
   }, [roomId])
@@ -68,19 +80,15 @@ const LotteryForm = ({ initialData }) => {
       setIsLoadding(true);
       const formData = new FormData();
       const selectedFile = getValues().image[0];
-      console.log(selectedFile?.name)
       if (selectedFile?.name) {
         formData.append("image", selectedFile, selectedFile.name);
       } else {
         formData.append("image", lottery?.image) 
       }
-      formData.append("resultUpdate", [selectedResults])
-      if (initialData) {
-        console.log(!selectedFile?.name)
-        if(selectedResults.length < 2 && !selectedFile?.name){
-          toast.error("Vui lòng chọn 2 kết quả hoặc ảnh nền cược");
-          return
-        }
+      formData.append("resultUpdate", selectedResults.length > 1 ? [selectedResults] : [getRandomTwo(array)])
+      formData.append("room", values?.room)
+
+      if (initialData) {        
         if (selectedResults.length > 1 || selectedFile) {
           const data = await apiUpdateResult(roomId, formData);
           if (data?.success) {
@@ -116,7 +124,7 @@ const LotteryForm = ({ initialData }) => {
       {initialData ? (
         <div className="flex items-center justify-center gap-4">
           <p className="text-lg font-semibold">Chỉnh sửa cược</p>
-          <Delete item="collection" id={initialData?._id} />
+          <Delete item="lottery" id={initialData?._id} />
         </div>
       ) : (
         <p className="text-2xl font-semibold items-center text-center">
@@ -137,6 +145,15 @@ const LotteryForm = ({ initialData }) => {
             />
           </div>
         )} */}
+        <div className="flex flex-col gap-4">
+            <label htmlFor="">Phòng: </label>
+            <Input
+              {...register("room", { required: true })}
+              placeholder="Tạo phòng"
+              onKeyDown={handleKeyPress}
+              aria-invalid={errors.room ? "true" : "false"}
+            />
+        </div>
         {initialData && (
           <div className="flex flex-col items-start gap-4">
             <label>Chỉnh sửa nền cược</label>
@@ -158,7 +175,8 @@ const LotteryForm = ({ initialData }) => {
         {initialData && (
           <div className="flex items-start flex-col gap-4 ">
             <label htmlFor="result">
-              Kết quả dự đoán (Nếu chọn thì tự động random ra kết quả) :
+              Kết quả dự đoán (Nếu chọn thì tự động random ra kết quả)
+            {lottery?.resultUpdate?.length > 0 && <p className="text-red-500 font-semibold">Kết quả dự đoán tiếp theo là: {lottery?.resultUpdate?.at(-1)}</p>}
             </label>
             <select
               multiple
@@ -193,17 +211,9 @@ const LotteryForm = ({ initialData }) => {
           </div>
         )}
         
-        {!initialData && (
-          <div className="flex flex-col gap-4">
-            <label htmlFor="">Phòng: </label>
-            <Input
-              {...register("room", { required: true })}
-              placeholder="Tạo phòng"
-              onKeyDown={handleKeyPress}
-              aria-invalid={errors.room ? "true" : "false"}
-            />
-          </div>
-        )}
+         
+          
+        
         <div className="flex gap-10">
           <Button type="submit" className="bg-blue-500 text-white hover:bg-blue-700">
             Gửi

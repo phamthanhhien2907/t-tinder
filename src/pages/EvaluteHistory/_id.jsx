@@ -36,7 +36,7 @@ const HistoryDetails = () => {
               className="absolute top-2 z-30 left-4 text-white cursor-pointer"
               size={30}
             />
-            <span className=" text-lg text-white absolute top-2 left-[40%]">
+            <span className=" text-lg text-white absolute top-2 left-[25%]">
                 {t("evalute.evaluationHistory")} {roomId}
             </span>
           </div>

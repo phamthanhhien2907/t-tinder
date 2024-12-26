@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 import Delete from "../custom ui/Delete";
 import { useNavigate, useParams } from "react-router-dom";
 import { apiCreateCollection, apiGetCollectionById, apiUpdateCollectionById } from "@/services/collectionService";
+import { pathImg } from "@/lib/constant";
 
 const CollectionForm = ({ initialData }) => {
   const navigate = useNavigate();
@@ -37,7 +38,6 @@ const CollectionForm = ({ initialData }) => {
       const data = await apiGetCollectionById(id)
       if(data?.success) setCollection(data?.collections)
     }
-    console.log(collection)
 
     useEffect(() => {
       getCollectionDetails(id)
@@ -136,25 +136,48 @@ const CollectionForm = ({ initialData }) => {
             <option value="gay">Gay</option>
           </select>
         </div>
-        <div className="flex flex-col items-start gap-4">
-          <label>Chọn ảnh phim</label>
-          <Input
-            type="file"
-            {...register("image", { onChange })}
-            placeholder="Image"
-            // onKeyDown={handleKeyPress}
-            // accept="image/*"
-          />
+        <div className="flex items-start gap-4 w-full">
+          <div className="w-[80%] flex flex-col gap-4">
+            <label>Chọn ảnh phim</label>
+            <Input
+              type="file"
+              {...register("image", { onChange })}
+              placeholder="Image"
+              // onKeyDown={handleKeyPress}
+              // accept="image/*"
+            />
+          </div>
+         <div className="w-[20%]">
+          <img className="w-24 h-24" src={`${pathImg}/images/${collection?.image}`} alt="" />
+         </div>
         </div>
-        <div className="flex flex-col items-start gap-4">
-          <label>Chọn video</label>
-          <Input
-            type="file"
-            {...register("video")}
-            placeholder="video"
-            onKeyDown={handleKeyPress}
-          />
+        <div className="flex flex-col items-start gap-4 w-full">
+          <div className="w-full flex flex-col gap-4">
+            
+          <div className="flex items-end justify-between">
+            <label>Chọn video</label>
+            <div className="w-[20%]">
+              {collection?.video ? (
+                <video autoPlay muted controls width="320" height="240" className="rounded-lg shadow-lg">
+                  <source src={`${pathImg}/images/${collection?.video}`} type="video/mp4" />
+                  Trình duyệt của bạn không hỗ trợ thẻ video.
+                </video>
+              ) : (
+                <p className="text-sm text-gray-500">Không có video để hiển thị.</p>
+              )}
+            </div>
+          </div>
+            <Input
+              type="file"
+              {...register("video")}
+              placeholder="video"
+              onKeyDown={handleKeyPress}
+              accept="video/*"
+            />
+          </div>
+         
         </div>
+       
         {/* <FormField
             control={form.control}
             name="image"

@@ -46,24 +46,25 @@ const WithDrawalHistory = () => {
                   >
                     <div className="flex flex-col gap-2">
                       <span className="text-lg font-semibold text-gray-500">
+                        Trạng thái
+                      </span>
+                      <span className={`${el?.status === "Đợi duyệt" ? "text-lg font-bold text-yellow-500" : el?.status === "Thành công" ? "text-lg font-bold text-green-500" : "text-lg font-bold text-red-500"} `}>{el?.status}</span>
+                    </div>
+                    {/* <div className="flex flex-col gap-2">
+                      <span className="text-lg font-semibold text-gray-500">
                         Khoảng thời gian
                       </span>
                       <span className="text-lg font-bold">
                         {moment(el?.craetedAt).format("YYYY-MM-DD HH:mm:ss")}
                       </span>
-                    </div>
+                    </div> */}
                     <div className="flex flex-col gap-2">
                       <span className="text-lg font-semibold text-gray-500">
                         Số tiền
                       </span>
                       <span className="text-lg font-bold">{el?.withDraw}</span>
                     </div>
-                    <div className="flex flex-col gap-2">
-                      <span className="text-lg font-semibold text-gray-500">
-                        Nội dung
-                      </span>
-                      <span className="text-lg font-bold">{el?.status}</span>
-                    </div>
+                    
                     {el?.reson?.length > 0 && (
                       <div className="flex flex-col gap-2">
                         <span className="text-lg font-semibold text-gray-500">

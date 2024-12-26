@@ -53,7 +53,6 @@ const DetailEvalute = () => {
   const { roomId, userId } = useParams();
   const [isFetching, setIsFetching] = useState(false); // Thêm cờ kiểm tra
   const { t } = useTranslation('global');
-
   const navigate = useNavigate();
   const { currentData } = useSelector((state) => state.user);
   const [timeLeft, setTimeLeft] = useState(0);
@@ -153,6 +152,7 @@ const DetailEvalute = () => {
       reset();
       setHoverActive(!hoverActive);
       setSelectedItems([]);
+      dispatch(getCurrent())
     } else {
       toast.error(data?.message);
     }
@@ -474,7 +474,7 @@ const DetailEvalute = () => {
                   {currentData?.withDraw.toLocaleString("vi-VN") + "₫"}
                 </span>
               </span>
-              <button className="rounded-2xl bg-profileColor px-6 py-2 " >
+              <button className="rounded-2xl bg-profileColor px-6 py-2 text-white" >
               {t("belt.placeAmount")}
               </button>
             </div>

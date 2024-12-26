@@ -25,7 +25,7 @@ const LeftSideBar = () => {
          </div>
         </div>
       </div>
-      <div className="flex flex-col gap-10 max-sm:gap-1">
+      <div className="flex flex-col gap-8 max-sm:gap-1">
         {navLinks?.map((link) => (
           <Link
             to={link?.url}

@@ -11,10 +11,11 @@ const LotteryDetails = () => {
   const [lotteryDetails, setLotteryDetails] = useState(null);
 
   const { roomId } = useParams();
+  console.log(roomId)
   const getCollectionDetails = async (roomId) => {
     try {
       const data = await apiGetRoomById(roomId);
-      if (data?.success) setLotteryDetails(data.evaluates);
+      if (data?.success) setLotteryDetails(data?.evaluates);
       setIsLoading(false);
     } catch (error) {
       console.log("collection_[GET]", error);

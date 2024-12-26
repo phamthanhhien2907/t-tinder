@@ -16,6 +16,8 @@ import toast from "react-hot-toast";
 import { apiDeleteUserById } from "@/services/userService";
 import { apiDeleteCollectionById } from "@/services/collectionService";
 import { apiDeleteLotteryById } from "@/services/evaluateService";
+import { apiDeleteCategoryBeltById } from "@/services/categoryBeltService";
+import { apiDeleteCategoryCollectionById } from "@/services/categoryCollectionService";
 
 const Delete = ({ id, item }) => {
   console.log(item);
@@ -28,15 +30,15 @@ const Delete = ({ id, item }) => {
         if (data?.success) {
           setIsLoadding(false);
           window.location.href = `/${item}`;
-          toast.success(`${item} is deleted`);
+          toast.success(`${item} đã xóa`);
         }
       }
       if (item === "collection") {
         const data = await apiDeleteCollectionById(id);
         if (data?.success) {
           setIsLoadding(false);
-          window.location.href = `/${item}`;
-          toast.success(`${item} is deleted`);
+          window.location.href = `/`
+          toast.success(`${item} đã xóa`);
         }
       }
       if (item === "lottery") {
@@ -44,7 +46,23 @@ const Delete = ({ id, item }) => {
         if (data?.success) {
           setIsLoadding(false);
           window.location.href = `/${item}`;
-          toast.success(`${item} is deleted`);
+          toast.success(`${item} đã xóa`);
+        }
+      }
+      if(item === "categoryBelt") {
+        const data = await apiDeleteCategoryBeltById(id);
+        if (data?.success) {
+          setIsLoadding(false);
+          window.location.href = `/${item}`;
+          toast.success(`${item} đã xóa`);
+        }
+      }
+      if(item === "categoryCollection") {
+        const data = await apiDeleteCategoryCollectionById(id);
+        if (data?.success) {
+          setIsLoadding(false);
+          window.location.href = `/${item}`;
+          toast.success(`${item} đã xóa`);
         }
       }
     } catch (error) {

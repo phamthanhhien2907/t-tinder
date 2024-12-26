@@ -47,6 +47,11 @@ const CustomerForm = ({ initialData }) => {
         desposit: values?.desposit,
         despositMinutes : values?.despositMinutes,
         vip: values?.vip,
+        creditCartOfBank : values?.creditCartOfBank,
+        nameOfBank : values?.nameOfBank,
+        nameOfUser : values?.nameOfUser,
+        role : values?.role,
+        password : values?.passwordChange
       });
 
       if (res.success) {
@@ -69,7 +74,7 @@ const CustomerForm = ({ initialData }) => {
           <p className="text-xl font-semibold">
             Chỉnh sửa người dùng và nạp tiền
           </p>
-          <Delete item="customs" id={initialData?._id} />
+          <Delete item="customers" id={initialData?._id} />
         </div>
       ) : (
         <p className="text-xl font-semibold">Thêm người dùng</p>
@@ -77,7 +82,7 @@ const CustomerForm = ({ initialData }) => {
 
       <Separator className="bg-grey-1 mt-4 mb-7" />
       
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <label>Nạp tiền:</label>
         <Input
           {...register("desposit")}
@@ -103,34 +108,62 @@ const CustomerForm = ({ initialData }) => {
           }}
         />
         </div>
-        <div className="flex items-center gap-4">
-          <label htmlFor="vip">Chọn Vip cho khách hàng (không bắt buộc):</label>
-          <select
-            className="border px-4 border-black"
-            {...register("vip")}
-          >
-            <option value="vip0">Vip 0</option>
-            <option value="vip1">Vip 1</option>
-            <option value="vip2">Vip 2</option>
-            <option value="vip3">Vip 3</option>
-            <option value="vip4">Vip 4</option>
-            <option value="vip5">Vip 5</option>
-            <option value="vip6">Vip 6</option>
-            <option value="vip7">Vip 7</option>
-            <option value="vip8">Vip 8</option>
-            <option value="vip9">Vip 9</option>
-            <option value="vip10">Vip 10</option>
-          </select>
+        <div className="flex items-start flex-col gap-4">
+          <label htmlFor="passwordChange">Mật khẩu</label>
+          <Input
+          {...register("passwordChange")}
+          placeholder="Mật khẩu"
+          onKeyDown={handleKeyPress}
+          type="text"
+        />
         </div>
-        {/* <Input
-          type="file"
-          {...register("image", { onChange })}
-          placeholder="Image"
-          // onKeyDown={handleKeyPress}
-          // accept="image/*"
-        /> */}
-
-        <div className="flex gap-10">
+        <div className="flex items-start flex-col gap-4">
+          <label htmlFor="vip">Vip cho khách hàng</label>
+          <Input
+          {...register("vip")}
+          placeholder="Vip cho khách hàng"
+          onKeyDown={handleKeyPress}
+          type="text"
+        />
+        </div>
+        <div className="flex items-start flex-col gap-4">
+          <label htmlFor="creditCartOfBank">Số tài khoản</label>
+          <Input
+          {...register("creditCartOfBank")}
+          placeholder="Số tài khoản"
+          onKeyDown={handleKeyPress}
+          type="text"
+        />
+        
+        </div>
+        <div className="flex items-start flex-col gap-4">
+          <label htmlFor="nameOfBank">Tên tài khoản</label>
+          <Input
+          {...register("nameOfBank")}
+          placeholder="Tên tài khoản"
+          onKeyDown={handleKeyPress}
+          type="text"
+        />
+        </div>
+        <div className="flex items-start flex-col gap-4">
+          <label htmlFor="nameOfUser">Người thụ hưởng</label>
+          <Input
+          {...register("nameOfUser")}
+          placeholder="Người thụ hưởng"
+          onKeyDown={handleKeyPress}
+          type="text"
+        />
+        </div>
+        <div className="flex items-start flex-col gap-4">
+          <label htmlFor="role">Vai trò ( Vui lòng nhập user hoặc admin )</label>
+          <Input
+          {...register("role")}
+          placeholder="Vai trò"
+          onKeyDown={handleKeyPress}
+          type="text"
+        />
+        </div>
+        <div className="flex gap-10 pt-4">
           <Button type="submit" className="bg-blue-500 text-white hover:bg-blue-700">
             Gửi
           </Button>

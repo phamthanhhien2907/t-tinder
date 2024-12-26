@@ -15,8 +15,11 @@ import Marquee from "react-fast-marquee";
 import CampaignIcon from '@mui/icons-material/Campaign';
 import { pathImg } from "@/lib/constant";
 import { useTranslation } from "react-i18next";
+import { apiGetCategoryBelt } from "@/services/categoryBeltService";
+import { apiGetAllLottery } from "@/services/evaluateService";
 const HomePage = ({ currentData }) => {
   const dispatch = useDispatch();
+  const [categoryBelt, setCategoryBelt] = useState([])
   const [collection, setCollection] = useState(null);
   const navigate = useNavigate()
   const [t] = useTranslation("global");
@@ -24,11 +27,13 @@ const HomePage = ({ currentData }) => {
     const data = await apiGetCollection();
     if (data.success) setCollection(data.collections);
   };
- 
+  const getCategoryBelt = async() => {
+     const data = await apiGetAllLottery()
+     if(data?.success) setCategoryBelt(data?.lotteries)
+   }
   useEffect(() => {
-    getCollection();
+    getCollection() && getCategoryBelt()
   }, []);
-
   return (
     <div className="w-full h-screen overflow-x-hidden tabs-list">
       <SlickSlider />
@@ -63,33 +68,21 @@ const HomePage = ({ currentData }) => {
         </div>
       </div>
       <div className="flex items-center justify-between px-20 py-2 max-sm:px-2">
-        <div className="flex flex-col items-center  gap-2 cursor-pointer" onClick={() => navigate(`/lottery/1/${currentData?._id}/3`)}>
-          <img
-            className="w-[60px] h-[60px] max-sm:w-[40px] max-sm:h-[50px] rounded-xl"
-            src={danhgia1}
-            alt="evalute"
-          />
-          <span className="text-base max-sm:text-xs">{t("home.vip1")}</span>
-        </div>
-        <div className="flex flex-col items-center  gap-2 cursor-pointer" onClick={() => navigate(`/lottery/2/${currentData?._id}/3`)}>
-          <img
-            className="w-[60px] h-[60px] max-sm:w-[40px] max-sm:h-[50px] rounded-xl"
-            src={danhgia2}
-            alt="evalute"
-          />
-          <span className="text-base max-sm:text-xs">{t("home.vip2")}</span>
-        </div>
-        <div className="flex flex-col items-center  gap-2 cursor-pointer" onClick={() => navigate(`/lottery/3/${currentData?._id}/3`)}>
-          <img
-            className="w-[60px] h-[60px] max-sm:w-[40px] max-sm:h-[50px] rounded-xl"
-            src={danhgia3}
-            alt="evalute"
-          />
-          <span className="text-base max-sm:text-xs">{t("home.vip3")}</span>
-        </div>
+          {categoryBelt?.slice(0, 3)?.map((category) => (
+            <Link to={`/lottery/${category?.room}/${currentData?._id}`}  key={category?._id}>
+                <div
+                  className="flex flex-col items-center gap-2 cursor-pointer"
+                >
+                  <img
+                    className="w-[60px] h-[60px] max-sm:w-[40px] max-sm:h-[50px] rounded-xl"
+                    src={`${pathImg}/images/${category?.image}`}
+                    alt="evalute"
+                  />
+                  <span className="text-base max-sm:text-xs">{category?.room}</span>
+                </div>
+            </Link>
+          ))}
       </div>
-     
-      
       <div className="flex items-center px-4 py-2 justify-between">
         <div className="flex items-center gap-2">
           <div className="w-[3px] h-[22px] bg-[#775fd9]"></div>
