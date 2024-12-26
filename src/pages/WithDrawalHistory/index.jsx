@@ -30,7 +30,7 @@ const WithDrawalHistory = () => {
               className="absolute top-2 z-30 left-4 text-white cursor-pointer"
               size={30}
             />
-            <span className=" text-xl text-white absolute top-2 left-[40%]">
+            <span className=" text-xl text-white absolute top-2 left-[40%] max-sm:text-base">
               Lịch sử rút
             </span>
           </div>
@@ -45,10 +45,10 @@ const WithDrawalHistory = () => {
                     className="w-full  border-b-2 bg-white flex flex-col gap-1 px-2 py-2 rounded-xl"
                   >
                     <div className="flex flex-col gap-2">
-                      <span className="text-lg font-semibold text-gray-500">
+                      <span className="text-lg font-semibold text-gray-500 max-sm:text-[12px]">
                         Trạng thái
                       </span>
-                      <span className={`${el?.status === "Đợi duyệt" ? "text-lg font-bold text-yellow-500" : el?.status === "Thành công" ? "text-lg font-bold text-green-500" : "text-lg font-bold text-red-500"} `}>{el?.status}</span>
+                      <span className={`${el?.status === "Đợi duyệt" ? "text-lg font-bold text-yellow-500 max-sm:text-[12px]" : el?.status === "Thành công" ? "text-lg font-bold text-green-500 max-sm:text-[12px]" : "text-lg font-bold text-red-500 max-sm:text-[12px]"} `}>{el?.status}</span>
                     </div>
                     {/* <div className="flex flex-col gap-2">
                       <span className="text-lg font-semibold text-gray-500">
@@ -59,10 +59,10 @@ const WithDrawalHistory = () => {
                       </span>
                     </div> */}
                     <div className="flex flex-col gap-2">
-                      <span className="text-lg font-semibold text-gray-500">
+                      <span className="text-lg font-semibold text-gray-500 max-sm:text-[12px]">
                         Số tiền
                       </span>
-                      <span className="text-lg font-bold">{el?.withDraw}</span>
+                      <span className="text-lg font-bold max-sm:text-[12px]">{el?.withDraw}</span>
                     </div>
                     
                     {el?.reson?.length > 0 && (

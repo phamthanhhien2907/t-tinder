@@ -67,12 +67,12 @@ const updateName = () => {
                   className="absolute top-2 z-30 left-4 text-white cursor-pointer"
                   size={30}
                 />
-                <span className=" text-xl text-white absolute top-2 left-[40%]">
+                <span className="max-sm:text-base text-xl text-white absolute top-2 left-[40%]">
                   {t("setName.editName")}
                 </span>
                 <Button
                   type="submit"
-                  className=" text-white text-lg absolute top-1 right-0"
+                  className="max-sm:text-base text-white text-lg absolute top-1 right-0"
                 >
                   {t("setName.save")}
                 </Button>
@@ -81,18 +81,18 @@ const updateName = () => {
             <div className="flex flex-col gap-4">
               <div className="w-[90%] mx-auto h-[0.5px] bg-[#ebedf0]"></div>
               <div className="flex items-center gap-8 px-4 py-2">
-                <span>{t("setName.realName")}</span>
+                <span className="max-sm:text-[12px]">{t("setName.realName")}</span>
                 <div className="">
                   <input
                     {...register("name")}
                     placeholder={t("setName.realName")}
                     onKeyDown={handleKeyPress}
-                    className="outline-none border-none"
+                    className="outline-none border-none max-sm:text-[12px]"
                   />
                 </div>
               </div>
               <div className="flex items-center gap-8 px-4 py-2">
-                <span className="text-red-500">
+                <span className="text-red-500 max-sm:text-[12px]">
                   {t("setName.realNameNote")}
                 </span>
               </div>

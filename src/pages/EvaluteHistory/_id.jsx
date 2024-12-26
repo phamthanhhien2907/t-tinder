@@ -36,7 +36,7 @@ const HistoryDetails = () => {
               className="absolute top-2 z-30 left-4 text-white cursor-pointer"
               size={30}
             />
-            <span className=" text-lg text-white absolute top-2 left-[25%]">
+            <span className=" text-lg text-white absolute max-sm:top-3 top-2 left-[25%] max-sm:text-sm">
                 {t("evalute.evaluationHistory")} {roomId}
             </span>
           </div>
@@ -52,42 +52,42 @@ const HistoryDetails = () => {
                       className="w-full h-fit border-b-2 bg-white flex flex-col gap-1 px-2 py-2 rounded-xl"
                     >
                       <div className="flex flex-col gap-2">
-                        <span className="text-lg font-semibold text-gray-500">
+                        <span className="text-lg font-semibold text-gray-500 max-sm:text-[12px]">
                           Khoảng thời gian
                         </span>
-                        <span className="text-lg font-bold">
+                        <span className="text-lg font-bold max-sm:text-[12px]">
                           {moment(el?.createdAt).format("DD-MM-YYYY HH:mm:ss")}
                         </span>
                       </div>
                       <div className="flex flex-col gap-2">
-                        <span className="text-lg font-semibold text-gray-500">
+                        <span className="text-lg font-semibold text-gray-500 max-sm:text-[12px]">
                           Số tiền
                         </span>
-                        <span className="text-lg font-bold">{el?.money}</span>
+                        <span className="text-lg font-bold max-sm:text-[12px]">{el?.money}</span>
                       </div>
                       <div className="flex flex-col gap-2">
-                        <span className="text-lg font-semibold text-gray-500">
+                        <span className="text-lg font-semibold text-gray-500 max-sm:text-[12px]">
                           Đánh giá của bạn
                         </span>
-                        <div className="text-lg font-bold flex items-center gap-4">
+                        <div className="text-lg font-bold flex items-center gap-4 max-sm:text-[12px]">
                           {el?.result?.map((rs, index) => (
                             <span key={index}>{rs}</span>
                           ))}
                         </div>
                       </div>
-                      <div className="flex flex-col gap-2">
-                        <span className="text-lg font-semibold text-gray-500">
+                      <div className="flex flex-col gap-2 max-sm:text-[12px]">
+                        <span className="text-lg font-semibold text-gray-500 max-sm:text-[12px]">
                           Kỳ
                         </span>
-                        <div className="text-lg font-bold flex items-center gap-4">
+                        <div className="text-lg font-bold flex items-center gap-4 max-sm:text-[12px]">
                           {el?.periodNumber}
                         </div>
                       </div>
                       <div className="flex flex-col gap-2">
-                        <span className="text-lg font-semibold text-gray-500">
+                        <span className="text-lg font-semibold text-gray-500 max-sm:text-[12px]">
                           Kết quả
                         </span>
-                        <div className="text-lg font-bold flex items-center gap-4">
+                        <div className="text-lg font-bold flex items-center gap-4 max-sm:text-[12px]">
                           {evalute?.result[el?.periodNumber - 1]
                             .sort()
                             ?.map((rs, index) => (
@@ -96,10 +96,10 @@ const HistoryDetails = () => {
                         </div>
                       </div>
                       <div className="flex flex-col gap-2">
-                        <span className="text-lg font-semibold text-gray-500">
+                        <span className="text-lg font-semibold text-gray-500 max-sm:text-[12px]">
                           Nội dung
                         </span>
-                        <div className="text-lg font-bold flex items-center gap-4">
+                        <div className="text-lg font-bold flex items-center gap-4 max-sm:text-[12px]">
                           {/* {JSON.stringify(
                             evalute?.result[el?.periodNumber - 1].sort()
                           ) === JSON.stringify(el?.result)

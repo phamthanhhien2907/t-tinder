@@ -37,7 +37,7 @@ const EvaluteHistory = () => {
             className="absolute top-2 z-30 left-4 text-white cursor-pointer"
             size={30}
           />
-          <span className=" text-xl text-white absolute top-2 left-[40%]">
+          <span className=" text-xl text-white absolute top-2 max-sm:top-3 left-[40%] max-sm:text-base">
             {t("evalute.evaluationHistory")}</span>
         </div>
       </div>
@@ -48,13 +48,13 @@ const EvaluteHistory = () => {
             to={`/historydetails/${lot?.room}/${id}`}
             key={lot?._id}
           >
-               <div className="w-[100%] bg-white cursor-pointer  rounded-2xl h-[140px] flex flex-col items-center " >
+               <div className="w-[100%] bg-white cursor-pointer max-sm:h-[120px]  rounded-2xl h-[140px] flex flex-col items-center max-sm:justify-center" >
                <img
-                 className="w-[90px] h-[70%] object-cover rounded-2xl px-4 py-2  "
+                 className="w-[90px] max-sm:w-fitmax-sm:h-[60%] h-[70%] object-cover rounded-2xl px-4 py-2 max-sm:object-contain"
                  src={`${pathImg}/images/${lot?.image}`}
                  alt="evalute"
                />
-               <span className="">{lot?.room} </span>
+               <span className="max-sm:text-[12px]">{lot?.room} </span>
              </div>
             
            

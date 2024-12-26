@@ -27,7 +27,7 @@ const Information = () => {
                 className="absolute top-2 z-30 left-4 text-white cursor-pointer"
                 size={30}
               />
-              <span className=" text-xl text-white absolute top-2 left-[40%]">
+              <span className="max-sm:text-base text-xl text-white absolute top-2 max-sm:left-[35%] left-[40%]">
                 {t("inf.personalInfo")}
               </span>
             </div>
@@ -38,9 +38,9 @@ const Information = () => {
               className="flex justify-between px-4 py-2 cursor-pointer"
               onClick={() => navigate(`/setName/${currentData?._id}`)}
             >
-              <span>{t("inf.realName")}</span>
+              <span className="max-sm:text-[12px]">{t("inf.realName")}</span>
               <div className="flex items-center gap-2 ">
-                <span>
+                <span className="max-sm:text-[12px]">
                   {currentData?.fullName
                     ? currentData?.fullName
                     : currentData?.username}
@@ -53,9 +53,9 @@ const Information = () => {
               className="flex justify-between px-4 py-2 cursor-pointer"
               onClick={() => navigate(`/setGender/${currentData?._id}`)}
             >
-              <span>{t("inf.gender")}</span>
+              <span className="max-sm:text-[12px]">{t("inf.gender")}</span>
               <div className="flex items-center gap-2 ">
-                <span>{currentData?.gender}</span>
+                <span className="max-sm:text-[12px]">{currentData?.gender}</span>
                 <ChevronRight />
               </div>
             </div>
@@ -64,9 +64,9 @@ const Information = () => {
               className="flex justify-between px-4 py-2 cursor-pointer"
               onClick={() => navigate(`/setBank/${currentData?._id}`)}
             >
-              <span>{t("inf.bankLink")}</span>
+              <span className="max-sm:text-[12px]">{t("inf.bankLink")}</span>
               <div className="flex items-center gap-2 ">
-                <span>
+                <span className="max-sm:text-[12px]">
                   {currentData?.creditCartOfBank &&
                   currentData?.nameOfBank &&
                   currentData?.nameOfUser

@@ -28,9 +28,9 @@ const DepositHistory = () => {
                 window.history.back()
               }}
               className="absolute top-2 z-30 left-4 text-white cursor-pointer"
-              size={isMobile ? "20px" : "30px"}
+              size={isMobile ? "25px" : "30px"}
             />
-            <span className=" text-xl max-sm:text-xs text-white absolute top-2 left-[40%]">
+            <span className=" text-xl max-sm:text-sm text-white absolute top-2 max-sm:top-3 left-[40%]">
               Lịch sử nạp
             </span>
           </div>

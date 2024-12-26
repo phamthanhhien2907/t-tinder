@@ -28,7 +28,7 @@ const Setting = () => {
               className="absolute top-2 z-30 left-4 text-white cursor-pointer"
               size={30}
             />
-            <span className=" text-xl text-white absolute top-2 left-[40%]">
+            <span className=" text-xl text-white absolute top-2 max-sm:top-3 left-[40%] max-sm:text-base">
               {t("setting.settings")}
             </span>
           </div>
@@ -38,7 +38,7 @@ const Setting = () => {
             className="flex justify-between px-4 py-2 cursor-pointer"
             onClick={() => navigate("/information")}
           >
-            <span>{t("setting.information")}</span>
+            <span className="max-sm:text-[12px]">{t("setting.information")}</span>
             <div className="flex items-center gap-2 ">
               <ChevronRight />
             </div>
@@ -48,7 +48,7 @@ const Setting = () => {
             className="flex justify-between px-4 py-2 cursor-pointer"
             onClick={() => navigate(`/setPassword/${currentData?._id}`)}
           >
-            <span>{t("setting.changePassword")}</span>
+            <span className="max-sm:text-[12px]">{t("setting.changePassword")}</span>
             <div className="flex items-center gap-2 ">
               <ChevronRight />
             </div>
@@ -61,9 +61,9 @@ const Setting = () => {
             </div>
           </div> */}
         </div>
-        <div className="px-4 py-8">
+        <div className="px-4 py-8 max-sm:py-2">
           <button
-            className="flex items-center w-full  bg-profileColor h-12 justify-center text-white rounded-xl"
+            className="flex items-center w-full max-sm:h-12 max-sm:w-[60%] max-sm:mx-auto bg-profileColor h-12 justify-center text-white rounded-xl max-sm:text-[12px]"
             onClick={() => dispatch(logout())}
           >
             {t("setting.logout")}
